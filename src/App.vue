@@ -1,29 +1,52 @@
+----------------------------Template----------------------------------------------
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <pepnavbar></pepnavbar>
+    <div class="pepcontent">
+      <router-view></router-view>
     </div>
-    <router-view />
+    <pepfooter></pepfooter>
   </div>
 </template>
-
+----------------------------Style----------------------------------------------
+<script>
+//
+// Imports
+import pepnavbar from "@/components/PepNavBar.vue";
+import pagecontent from "@/components/PageContent.vue";
+import pepfooter from "@/components/PepFooter.vue";
+//
+// Setup of #app
+export default {
+  head: {
+    meta: {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1, shrink-to-fit=no"
+    }
+  },
+  components: {
+    pepnavbar,
+    pagecontent,
+    pepfooter
+  }
+};
+</script>
+----------------------------Style----------------------------------------------
 <style lang="scss">
+@import "src/assets/scss/main.scss";
+@import "src/assets/scss/_bootstrap.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.pepcontent {
+  height: 100%;
 }
 </style>

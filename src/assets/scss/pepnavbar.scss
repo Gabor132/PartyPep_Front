@@ -1,0 +1,56 @@
+
+#pepheader * {
+  font-family: $font-header-footer;
+}
+
+#pepnavbar {
+  display: flex;
+  flex-direction: column;
+}
+
+//
+// Hamburger Menue
+#nav-collapse {
+  display:flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+//
+// Menu Links
+#peplinks {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+#peplinks a {
+  width:20%;
+  color: white;
+}
+#peplinks a :hover{
+  text-decoration: none;
+  color: grey;
+}
+
+.nav-item {
+  width: 30%;
+}
+
+//
+// Title
+#title * {
+  color: white;
+  text-decoration: none;
+}
+
+#title :hover{
+  color: grey;
+  text-decoration: none;
+}
+
+//
+// User settings
+#pepuser {
+ display: block;
+}
