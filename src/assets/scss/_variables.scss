@@ -1,4 +1,6 @@
 
+@import "@/assets/scss/_fonts.scss";
+
 // Color variables
 $color-paragraphs: #000000;
 $color-background: #FFFFFF;
@@ -14,4 +16,4 @@ $height-footer:10%;
 $width-header-footer:100%;
 
 // Font variables
-$font-header-footer: monospace;
+$font-header-footer: 'titlefont', monospace;

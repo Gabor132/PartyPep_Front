@@ -1,13 +1,15 @@
 <template>
   <div id="pepheader">
     <b-navbar id="pepnavbar" toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="/">
-        <h1 id="title">
-          <router-link to="/">PartyPeps</router-link>
-        </h1>
-      </b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
+      <div class="upper-header">
+      <b-navbar-toggle target="nav-collapse" class="hamburger-menu"></b-navbar-toggle>
+        <b-navbar-brand href="/">
+          <h1 class="title">
+            <router-link to="/">PartyPeps</router-link>
+          </h1>
+        </b-navbar-brand>
+      </div>
+      <b-collapse id="nav-collapse" class="lower-header" is-nav>
         <b-navbar-nav id="peplinks">
           <b-nav-item>
             <router-link to="/peps">

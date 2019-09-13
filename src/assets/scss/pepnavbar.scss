@@ -9,6 +9,52 @@
 }
 
 //
+// Upper Header
+.upper-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+.upper-header .hamburger-menu{
+    border: 0;
+    margin: 0;
+    margin-right: 2vw;
+    padding: 0;
+}
+
+.hamburger-menu {
+}
+
+.hamburger-menu * {
+  width: 2vw;
+  height: 2vh;
+}
+
+//
+// Title
+@media screen and (max-width: 8in) {
+  .title * {
+    font-size: 8vw;
+  }
+}
+@media screen and (min-width: 8in) {
+  .title * {
+    font-size: 4vw;
+  }
+}
+.title * {
+  color: white;
+  text-decoration: none;
+}
+
+.title :hover{
+  color: grey;
+  text-decoration: none;
+}
+
+//
 // Hamburger Menue
 #nav-collapse {
   display:flex;
@@ -25,6 +71,7 @@
   justify-content: center;
 }
 #peplinks a {
+  font-size: 2vw;
   width:20%;
   color: white;
 }
@@ -38,19 +85,8 @@
 }
 
 //
-// Title
-#title * {
-  color: white;
-  text-decoration: none;
-}
-
-#title :hover{
-  color: grey;
-  text-decoration: none;
-}
-
-//
 // User settings
 #pepuser {
- display: block;
+  font-size: 2vw;
+  display: block;
 }
