@@ -13,7 +13,6 @@
 //
 // Imports
 import pepnavbar from "@/components/PepNavBar.vue";
-import pagecontent from "@/components/PageContent.vue";
 import pepfooter from "@/components/PepFooter.vue";
 //
 // Setup of #app
@@ -26,7 +25,6 @@ export default {
   },
   components: {
     pepnavbar,
-    pagecontent,
     pepfooter
   }
 };

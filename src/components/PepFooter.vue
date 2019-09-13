@@ -1,8 +1,9 @@
 <template>
   <footer class="page-footer font-small text-black bg-black">
-    <div class="footer-copyright text-center py-3">© 2019 Copyright:
-    <a href="#">DGDynamics</a>
-  </div>
+    <div class="footer-copyright text-center py-3">
+      © 2019 Copyright:
+      <a href="#">DGDynamics</a>
+    </div>
   </footer>
 </template>
 --------------------------------------------------------------------------------

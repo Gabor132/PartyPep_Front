@@ -1,4 +1,3 @@
-
 /* TODO: Use this test to create new units tests
 import { shallowMount } from "@vue/test-utils";
 import HelloWorld from "@/components/HelloWorld.vue";
