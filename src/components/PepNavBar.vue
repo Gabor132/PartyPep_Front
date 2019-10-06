@@ -1,13 +1,13 @@
 <template>
   <div class="md-toolbar-row md-toolbar-offset" id="pepnavbar">
     <md-tabs class="md-primary" md-alignment="centered">
-      <md-tab id="tab-home" md-label="Peps" to="/peps" md-icon="emoji_people">
+      <md-tab id="tab-events" md-label="Events" to="/events" md-icon="location_city">
       </md-tab>
-      <md-tab id="tab-pages" md-label="Events" to="/events" md-icon="location_city">
+      <md-tab id="tab-peps" md-label="Peps" to="/peps" md-icon="emoji_people">
       </md-tab>
-      <md-tab id="tab-posts" md-label="Groups" to="/groups" md-icon="group">
+      <md-tab id="tab-groups" md-label="Groups" to="/groups" md-icon="group">
       </md-tab>
-      <md-tab id="tab-favorites" md-label="Messages" to="/messages" md-icon="chat">
+      <md-tab id="tab-messages" md-label="Messages" to="/messages" md-icon="chat">
       </md-tab>
     </md-tabs>
   </div>

@@ -7,8 +7,8 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "default",
-      component: () => import("./views/MyEvents.vue")
+      name:"events",
+      redirect: "/events"
     },
     {
       path: "/events",

@@ -32,6 +32,9 @@ import pepnavdrawer from "@/components/PepNavDrawer.vue";
 // Setup of #app
 export default {
   name: "app",
+  meta: {
+    title: "PartyPeps"
+  },
   head: {
     link: {
       rel: "stylesheet",
