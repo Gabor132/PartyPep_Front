@@ -1,11 +1,11 @@
 <template>
   <div class="peps">
     <h1>My Peps</h1>
-    <md-card v-for="pep in peps">
+    <md-card v-for="pep in peps" v-bind:key="pep.id">
       <md-card-header>
         <md-card-header-text>
-          <span class="md-title">{{pep.name}}</span>
-          <p class="md-subhead">{{pep.description}}</p>
+          <span class="md-title">{{ pep.name }}</span>
+          <p class="md-subhead">{{ pep.description }}</p>
         </md-card-header-text>
         <md-card-media class="md-big">
           <img src="https://vuematerial.io/assets/examples/card-weather.png" alt="Un Boss">
@@ -39,6 +39,7 @@ export default {
     return {
       peps: [
         {
+          id: 1,
           name: "Vasile",
           description: "Abia trezit din caruta",
           getAvatarText: function(){
@@ -46,6 +47,7 @@ export default {
           }
         },
         {
+          id: 2,
           name: "Georgica",
           description: "Caut vrabia vietii",
           getAvatarText: function(){
@@ -53,6 +55,7 @@ export default {
           }
         },
         {
+          id: 3,
           name: "Costel",
           description: "Got milk?",
           getAvatarText: function(){
