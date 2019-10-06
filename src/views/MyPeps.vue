@@ -1,30 +1,42 @@
 <template>
   <div class="peps">
-    <h1>My Peps</h1>
-    <md-card v-for="pep in peps" v-bind:key="pep.id">
+    <md-card class="mainCard">
       <md-card-header>
-        <md-card-header-text>
-          <span class="md-title">{{ pep.name }}</span>
-          <p class="md-subhead">{{ pep.description }}</p>
-        </md-card-header-text>
-        <md-card-media class="md-big">
-          <img src="https://vuematerial.io/assets/examples/card-weather.png" alt="Un Boss">
-        </md-card-media>
+        <h1 class="md-title">My Peps</h1>
       </md-card-header>
+      <md-divider/>
       <md-card-content>
+        <md-card v-for="pep in peps" v-bind:key="pep.id" md-with-hover>
+          <md-ripple>
+            <md-card-header>
+              <md-card-header-text>
+                <span class="md-title">{{ pep.name }}</span>
+                <p class="md-subhead">{{ pep.description }}</p>
+              </md-card-header-text>
+              <md-card-media class="md-medium">
+                <img src="https://vuematerial.io/assets/examples/card-weather.png" alt="Un Boss">
+              </md-card-media>
+            </md-card-header>
+            <md-card-content>
+            </md-card-content>
+            <md-card-actions>
+              <md-button class="md-primary">
+                Profile
+              </md-button>
+              <md-button class="md-primary">
+                Message
+              </md-button>
+              <md-button class="md-primary">
+                Unfollow
+              </md-button>
+            </md-card-actions>
+          </md-ripple>
+        </md-card>
       </md-card-content>
-      <md-card-actions>
-        <md-button class="md-primary">
-          Profile
-        </md-button>
-        <md-button class="md-primary">
-          Message
-        </md-button>
-        <md-button class="md-primary">
-          Unfollow
-        </md-button>
-      </md-card-actions>
     </md-card>
+    <md-button class="md-fab md-fab-bottom-right md-fixed" md-ripple>
+      <md-icon>add</md-icon>
+    </md-button>
   </div>
 </template>
 --------------------------------------------------------------------------------
@@ -61,6 +73,14 @@ export default {
           getAvatarText: function(){
             return this.name.charAt(0);
           }
+        },
+        {
+          id: 4,
+          name: "Viorica",
+          description: "Iesi acasa!",
+          getAvatarText: function(){
+            return this.name.charAt(0);
+          }
         }
       ]
     }
@@ -69,13 +89,5 @@ export default {
 </script>
 --------------------------------------------------------------------------------
 <style lang="scss">
-
-.md-card{
-  margin-bottom: 1vh;
-}
-
-.md-card-actions > .md-button{
-  margin-right: 1vw;
-}
-
+@import "../assets/scss/main.scss";
 </style>

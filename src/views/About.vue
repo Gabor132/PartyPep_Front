@@ -1,12 +1,14 @@
 <template>
-  <div id="messages">
+  <div class="about">
     <md-card>
       <md-card-header>
-          <h1 class="md-title">My Messages</h1>
+        <h1 class="md-title">About</h1>
       </md-card-header>
       <md-divider/>
       <md-card-content>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error quibusdam, non molestias et! Earum magnam, similique, quo recusandae placeat dicta asperiores modi sint ea repudiandae maxime? Quae non explicabo, neque.</p>
+        <p>PartyPeps is made by this guy:
+          <a href="https://www.linkedin.com/in/dragos-alexandru-gabor-82a8985b/">Gabor Dragos-Alexandru</a>
+        </p>
       </md-card-content>
     </md-card>
   </div>
@@ -16,10 +18,13 @@
 //
 // Imports
 //
-// Setup view
+// Local Setup
 export default {
-  name: "messages"
+  name: "about"
 };
 </script>
 --------------------------------------------------------------------------------
-<style></style>
+<style lang="scss">
+
+
+</style>

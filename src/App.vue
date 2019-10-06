@@ -6,10 +6,10 @@
       <pepnavbar/>
     </md-app-toolbar>
     <md-app-drawer :md-active.sync="global.isMenuShown" md-swipeable>
-      <pepnavdrawer/>
+      <pepnavdrawer :user="user"/>
     </md-app-drawer>
     <md-app-content>
-      <pepcontent :peps="peps"/>
+      <pepcontent/>
     </md-app-content>
     <md-bottom-bar md-sync-route>
       <md-bottom-bar-item to="/components/bottom-bar" exact md-label="Home" md-icon="home"></md-bottom-bar-item>

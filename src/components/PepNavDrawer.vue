@@ -3,22 +3,15 @@
     <md-app-toolbar class="md-transparent" md-elevation="0">
       <div class="md-title">PartyPeps</div>
     </md-app-toolbar>
+    <md-divider/>
     <md-list>
-      <md-list-item to="/peps">
-        <md-icon>emoji_people</md-icon>
-        <span class="md-list-item-text">Peps</span>
+      <md-list-item to="/profile">
+        <md-icon>account_circle</md-icon>
+        <span class="md-list-item-text">{{user.name + " " + "Profile"}}</span>
       </md-list-item>
-      <md-list-item to="/events">
-        <md-icon>location_city</md-icon>
-        <span class="md-list-item-text">Events</span>
-      </md-list-item>
-      <md-list-item to="/groups">
-        <md-icon>group</md-icon>
-        <span class="md-list-item-text">Groups</span>
-      </md-list-item>
-      <md-list-item to="/messages">
-        <md-icon>chat</md-icon>
-        <span class="md-list-item-text">Messages</span>
+      <md-list-item to="/about">
+        <md-icon>help</md-icon>
+        <span class="md-list-item-text">About</span>
       </md-list-item>
     </md-list>
   </div>
@@ -29,7 +22,7 @@
 // Setup pepnavbar
 export default {
   name: "pepnavdrawer",
-  props: ["global"]
+  props: ["global", "user"]
 };
 </script>
 --------------------------------------------------------------------------------

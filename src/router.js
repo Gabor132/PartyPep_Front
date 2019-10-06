@@ -30,6 +30,16 @@ export default new Router({
       path: "/groups",
       name: "groups",
       component: () => import("./views/MyGroups.vue")
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import("./views/About.vue")
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/Profile.vue")
     }
   ]
 });
