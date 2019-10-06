@@ -1,6 +1,6 @@
 <template>
-  <div class="pagecontent">
-    <p>Hello!</p>
+  <div id="pepcontent">
+    <router-view></router-view>
   </div>
 </template>
 --------------------------------------------------------------------------------
@@ -8,15 +8,15 @@
 //
 // Setup of pagecontent
 export default {
-  name: "pagecontent",
-  props: ["page"]
+  name: "pepcontent",
+  props: ["peps"]
 };
 </script>
 --------------------------------------------------------------------------------
 <style lang="scss">
 //
 // Local style
-.pagecontent {
+#pepcontent {
   display: block;
   height: 100%;
 }

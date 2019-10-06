@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "events",
+      name: "default",
       component: () => import("./views/MyEvents.vue")
     },
     {
@@ -18,12 +18,18 @@ export default new Router({
     {
       path: "/peps",
       name: "peps",
+      props: { default: true },
       component: () => import("./views/MyPeps.vue")
     },
     {
       path: "/messages",
       name: "messages",
       component: () => import("./views/MyMessages.vue")
+    },
+    {
+      path: "/groups",
+      name: "groups",
+      component: () => import("./views/MyGroups.vue")
     }
   ]
 });
