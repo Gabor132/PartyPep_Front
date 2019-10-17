@@ -9,6 +9,8 @@
       </md-tab>
       <md-tab id="tab-messages" md-label="Messages" to="/messages" md-icon="chat">
       </md-tab>
+      <md-tab id="tab-test-requests" md-label="Requests" to="/requests" md-icon="chat">
+      </md-tab>
     </md-tabs>
   </div>
 </template>

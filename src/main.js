@@ -21,3 +21,9 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
+
+import "./javascript/auth.js";
+
+Notification.requestPermission(function(status){
+  console.log("Notification permission status: ", status);
+});
