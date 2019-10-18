@@ -40,21 +40,6 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: () => import("./views/Profile.vue")
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: () => import("./views/Login.vue")
-    },
-    {
-      path: "/register",
-      name: "register",
-      component: () => import("./views/Register.vue")
-    },
-    {
-      path: "/requests",
-      name: "requests",
-      component: () => import("./views/dev/Requests.vue")
     }
   ]
 });
