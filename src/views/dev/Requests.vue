@@ -75,10 +75,9 @@ export default {
       if(this.requestType === "POST"){
         requestHandler._doOAuthPost(this.form.url, authenticationPayload, authorization,
            function(response){
-              console.log(response);
            },
             function(error){
-              console.log(error);
+              
             }
         );
       }else{
