@@ -3,7 +3,7 @@
       <md-button class="md-icon-button" @click="global.isMenuShown = !global.isMenuShown">
         <md-icon class="md-icon">menu</md-icon>
       </md-button>
-      <span class="md-title" to="/">PartyPeps</span>
+      <span class="md-title" to="/">Mute-A-Lot</span>
       <div class="md-toolbar-section-end">
           <md-button class="md-icon-button">
             <md-avatar v-if="user !== undefined" class="md-avatar-icon">{{user.getAvatarText()}}</md-avatar>

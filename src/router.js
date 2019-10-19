@@ -7,44 +7,13 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name:"events",
-      redirect: "/events"
+      name:"mute-default",
+      redirect: "/mute"
     },
     {
-      path: "/events",
-      name: "events",
-      component: () => import("./views/MyEvents.vue")
-    },
-    {
-      path: "/peps",
-      name: "peps",
-      props: { default: true },
-      component: () => import("./views/MyPeps.vue")
-    },
-    {
-      path: "/messages",
-      name: "messages",
-      component: () => import("./views/MyMessages.vue")
-    },
-    {
-      path: "/groups",
-      name: "groups",
-      component: () => import("./views/MyGroups.vue")
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: () => import("./views/About.vue")
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      component: () => import("./views/Profile.vue")
-    },
-    {
-      path: "/requests",
-      name: "requests",
-      component: () => import("./views/dev/Requests.vue")
+      path: "/mute",
+      name: "mute",
+      component: () => import("./views/Mute.vue")
     }
   ]
 });

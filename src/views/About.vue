@@ -6,7 +6,7 @@
       </md-card-header>
       <md-divider/>
       <md-card-content>
-        <p>PartyPeps is made by this guy:
+        <p>Mute-A-Lot is made by this guy:
           <a href="https://www.linkedin.com/in/dragos-alexandru-gabor-82a8985b/">Gabor Dragos-Alexandru</a>
         </p>
       </md-card-content>
