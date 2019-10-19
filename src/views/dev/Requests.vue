@@ -74,10 +74,11 @@ export default {
       var authenticationPayload = requestHandler.createAuthenticationData(this.grantType, this.clientId, this.form.username, this.form.password);
       if(this.requestType === "POST"){
         requestHandler._doOAuthPost(this.form.url, authenticationPayload, authorization,
-           function(response){
-           },
+            function(response){
+              return response;
+            },
             function(error){
-              
+              return error;
             }
         );
       }else{
