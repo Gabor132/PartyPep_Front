@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 
 
 var requestHandler = {};
@@ -52,7 +52,7 @@ requestHandler._doGetRequest = function(url, onSuccess, onFailure){
     });
 }
 
-requestHandler.checkToken = function(url){
+requestHandler.checkToken = function(){
   var token = "";
   axios.get(requestHandler._baseUrl + "/oauth/check_token", {
     token: token
@@ -65,4 +65,4 @@ requestHandler.checkToken = function(url){
     });
 
 
-}
+}*/

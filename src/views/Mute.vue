@@ -142,7 +142,6 @@ export default {
     },
     like: function(index){
       var wantedUser = this.users[index];
-      console.log(wantedUser);
       if(wantedUser !== undefined){
         wantedUser.isLiked = true;
         wantedUser.isDisliked = false;
