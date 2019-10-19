@@ -24,7 +24,6 @@
               <md-option value="french">French</md-option>
               <md-option value="romanian">Romanian</md-option>
               <md-option value="portuguese">Portuguese</md-option>
-              <md-option value="random noise">Random Noise</md-option>
               <md-option value="mandarin">Mandarin</md-option>
               <md-option value="finnish">Finnish</md-option>
               <md-option value="danish">Danish</md-option>
@@ -34,10 +33,12 @@
               <md-option value="cantonese">Cantonese</md-option>
               <md-option value="greek">Greek</md-option>
               <md-option value="italian">Italian</md-option>
+              <md-option value="random noise">Random Noise</md-option>
               <md-option value="random squeaky noise">Random squeaky noise</md-option>
               <md-option value="birdish">Birdish</md-option>
               <md-option value="elvish">Elvish</md-option>
               <md-option value="dornish">Dornish</md-option>
+              <md-option value="french elvis">French Elvis</md-option>
             </md-select>
           </md-field>
         </div>
