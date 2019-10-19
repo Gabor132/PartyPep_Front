@@ -2,8 +2,7 @@
   <div id="mute">
     <md-card v-for="(user, index) in users" v-bind:key="index">
       <md-card-header>
-        <md-avatar class="md-large md-avatar-icon md-primary" v-if="user.isLiked">{{getFirstChar(user.name)}}</md-avatar>
-        <md-avatar class="md-large md-avatar-icon" v-else>{{getFirstChar(user.name)}}</md-avatar>
+        <md-avatar class="md-large md-avatar-icon md-primary">{{getFirstChar(user.name)}}</md-avatar>
         <md-card-header-text>
           <span class="md-title">{{ user.name }}</span>
         </md-card-header-text>
@@ -71,9 +70,7 @@ export default {
           name: "Dragos",
           language: "english",
           isMuted: false,
-          enableTranslations: false,
-          isLiked: true,
-          isDisliked: false
+          enableTranslations: false
         },
         {
           name: "Vicky",
