@@ -48,22 +48,6 @@
           <md-icon>share</md-icon>
           Share
         </md-button>
-        <md-button v-if="user.isLiked" class="md-primary" @click="like(index)">
-          <md-icon>thumb_up</md-icon>
-          Like
-        </md-button>
-        <md-button v-else @click="like(index)">
-          <md-icon>thumb_up</md-icon>
-          Like
-        </md-button>
-        <md-button v-if="user.isDisliked" class="md-primary" @click="dislike(index)">
-          <md-icon>thumb_down</md-icon>
-          Dislike
-        </md-button>
-        <md-button v-else @click="dislike(index)">
-          <md-icon>thumb_down</md-icon>
-          Dislike
-        </md-button>
         <md-button>
           <md-icon>block</md-icon>
           Block
