@@ -2,19 +2,32 @@
 <template>
   <md-app class="md-waterfall">
     <md-app-toolbar class="md-large md-primary">
-      <peptitlebar :global="global" :user="user"/>
-      <pepnavbar/>
+      <peptitlebar :global="global" :user="user" />
+      <pepnavbar />
     </md-app-toolbar>
     <md-app-drawer :md-active.sync="global.isMenuShown" md-swipeable>
-      <pepnavdrawer :user="user"/>
+      <pepnavdrawer :user="user" />
     </md-app-drawer>
     <md-app-content>
-      <pepcontent/>
+      <pepcontent />
     </md-app-content>
     <md-bottom-bar md-sync-route>
-      <md-bottom-bar-item to="/components/bottom-bar" exact md-label="Home" md-icon="home"></md-bottom-bar-item>
-      <md-bottom-bar-item to="/components/bottom-bar/posts" md-label="Posts" md-icon="/assets/icon-whatshot.svg"></md-bottom-bar-item>
-      <md-bottom-bar-item to="/components/bottom-bar/favorites" md-label="Favorites" md-icon="favorite"></md-bottom-bar-item>
+      <md-bottom-bar-item
+        to="/components/bottom-bar"
+        exact
+        md-label="Home"
+        md-icon="home"
+      ></md-bottom-bar-item>
+      <md-bottom-bar-item
+        to="/components/bottom-bar/posts"
+        md-label="Posts"
+        md-icon="/assets/icon-whatshot.svg"
+      ></md-bottom-bar-item>
+      <md-bottom-bar-item
+        to="/components/bottom-bar/favorites"
+        md-label="Favorites"
+        md-icon="favorite"
+      ></md-bottom-bar-item>
     </md-bottom-bar>
   </md-app>
 </template>
@@ -35,15 +48,9 @@ export default {
   meta: {
     title: "PartyPeps"
   },
-  head: {
-    link: {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons"
-    }
-  },
   data: () => ({
     global: {
-      isMenuShown : false
+      isMenuShown: false
     },
     user: {
       age: 18,
@@ -65,8 +72,8 @@ export default {
     ]
   }),
   methods: {
-    showMenu(){
-      this.isMenuShown = ! this.isMenuShown;
+    showMenu() {
+      this.isMenuShown = !this.isMenuShown;
     }
   },
   components: {
@@ -79,7 +86,7 @@ export default {
 </script>
 ----------------------------Style----------------------------------------------
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons');
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons");
 @import "src/assets/scss/_theme.scss";
 #app {
   font-family: "Roboto", "Avenir", Helvetica, Arial, sans-serif;
@@ -89,7 +96,7 @@ export default {
   color: #2c3e50;
 }
 .md-drawer {
-    width: 230px;
-    max-width: calc(100vw - 125px);
+  width: 230px;
+  max-width: calc(100vw - 125px);
 }
 </style>

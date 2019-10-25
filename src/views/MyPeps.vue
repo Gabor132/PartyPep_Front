@@ -4,7 +4,7 @@
       <md-card-header>
         <h1 class="md-title">My Peps</h1>
       </md-card-header>
-      <md-divider/>
+      <md-divider />
       <md-card-content>
         <md-card v-for="pep in peps" v-bind:key="pep.id" md-with-hover>
           <md-ripple>
@@ -14,11 +14,13 @@
                 <p class="md-subhead">{{ pep.description }}</p>
               </md-card-header-text>
               <md-card-media class="md-medium">
-                <img src="https://vuematerial.io/assets/examples/card-weather.png" alt="Un Boss">
+                <img
+                  src="https://vuematerial.io/assets/examples/card-weather.png"
+                  alt="Un Boss"
+                />
               </md-card-media>
             </md-card-header>
-            <md-card-content>
-            </md-card-content>
+            <md-card-content> </md-card-content>
             <md-card-actions>
               <md-button class="md-primary">
                 Profile
@@ -54,7 +56,7 @@ export default {
           id: 1,
           name: "Vasile",
           description: "Abia trezit din caruta",
-          getAvatarText: function(){
+          getAvatarText: function() {
             return this.name.charAt(0);
           }
         },
@@ -62,7 +64,7 @@ export default {
           id: 2,
           name: "Georgica",
           description: "Caut vrabia vietii",
-          getAvatarText: function(){
+          getAvatarText: function() {
             return this.name.charAt(0);
           }
         },
@@ -70,7 +72,7 @@ export default {
           id: 3,
           name: "Costel",
           description: "Got milk?",
-          getAvatarText: function(){
+          getAvatarText: function() {
             return this.name.charAt(0);
           }
         },
@@ -78,12 +80,12 @@ export default {
           id: 4,
           name: "Viorica",
           description: "Iesi acasa!",
-          getAvatarText: function(){
+          getAvatarText: function() {
             return this.name.charAt(0);
           }
         }
       ]
-    }
+    };
   }
 };
 </script>
