@@ -11,7 +11,7 @@
             <md-card-header>
               <md-card-header-text>
                 <span class="md-title">{{ pep.name }}</span>
-                <p class="md-subhead">{{ pep.description }}</p>
+                <p class="md-subhead">{{ pep.password }}</p>
               </md-card-header-text>
               <md-card-media class="md-medium">
                 <img
@@ -46,46 +46,29 @@
 //
 // Imports
 //
+import {
+  RequestHandler
+} from "@/javascript/requests.js";
+
+RequestHandler.config();
+RequestHandler.getOAuthToken("admin", "admin");
+console.info(data);
+
 // Local Setup
 export default {
   name: "peps",
   data: function() {
     return {
-      peps: [
-        {
-          id: 1,
-          name: "Vasile",
-          description: "Abia trezit din caruta",
-          getAvatarText: function() {
-            return this.name.charAt(0);
-          }
-        },
-        {
-          id: 2,
-          name: "Georgica",
-          description: "Caut vrabia vietii",
-          getAvatarText: function() {
-            return this.name.charAt(0);
-          }
-        },
-        {
-          id: 3,
-          name: "Costel",
-          description: "Got milk?",
-          getAvatarText: function() {
-            return this.name.charAt(0);
-          }
-        },
-        {
-          id: 4,
-          name: "Viorica",
-          description: "Iesi acasa!",
-          getAvatarText: function() {
-            return this.name.charAt(0);
-          }
-        }
-      ]
+      peps: []
     };
+  },
+  mounted(){
+    this.peps = [];
+  },
+  methods: {
+    updatePeps: function(){
+      this.peps =  RequestHandler.doGetRequest("/users/all");
+    }
   }
 };
 </script>

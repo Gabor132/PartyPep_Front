@@ -17,29 +17,21 @@
             <label for="password">Password</label>
             <md-input name="password" id="password" v-model="form.password" />
           </md-field>
-          <md-field>
-            {{ clientId }}
-          </md-field>
-          <md-field>
-            {{ apiKey }}
-          </md-field>
           <md-button class="md-primary md-raised" @click="doTokenRequest()">
             Get Token
           </md-button>
           <md-button
             class="md-primary md-raised"
-            @click="doTokenCheckRequest()"
-          >
+            @click="doTokenCheckRequest()">
             Check Token
           </md-button>
           <md-button class="md-primary md-raised" @click="getAllUsers()">
             Get All Users
           </md-button>
+          <md-button class="md-primary md-raised" @click="getClientId()">
+            Get ClientId
+          </md-button>
         </form>
-        <p>
-          Response:
-          {{ response }}
-        </p>
       </md-card-content>
     </md-card>
 
@@ -68,9 +60,7 @@
 // Imports
 //
 import {
-  RequestHandler,
-  AuthenticationData,
-  BasicAuthorization
+  RequestHandler
 } from "@/javascript/requests.js";
 
 // Local Setup
@@ -96,40 +86,22 @@ export default {
           param1: ""
         }
       },
-      response: "",
-      apiUrl: process.env.VUE_APP_ROOT_API,
-      clientId: process.env.VUE_APP_API_CLIENT_ID,
-      apiKey: process.env.VUE_APP_API_KEY
+      apiUrl: process.env.VUE_APP_ROOT_API
     };
   },
   methods: {
     doTokenRequest: function() {
-      var response = RequestHandler.getOAuthToken(this);
-      this.response = response;
+      var response = RequestHandler.getOAuthToken(this.form.username, this.form.password, this);
     },
     doTokenCheckRequest: function() {
       RequestHandler.checkToken(this);
     },
     getAllUsers: function() {
       RequestHandler.doGetRequest("/users/all");
+    },
+    getClientId: function() {
+      RequestHandler.getClientID();
     }
-  },
-  mounted() {
-    var basicAuthorization = BasicAuthorization(
-      process.env.VUE_APP_API_CLIENT_ID,
-      process.env.VUE_APP_API_KEY
-    );
-    var userAuthentication = AuthenticationData(
-      "admin",
-      "admin",
-      process.env.VUE_APP_API_DEFAULT_GRANT_TYPE,
-      process.env.VUE_APP_API_CLIENT_ID
-    );
-    RequestHandler.config(
-      process.env.VUE_APP_ROOT_API,
-      basicAuthorization,
-      userAuthentication
-    );
   }
 };
 </script>
