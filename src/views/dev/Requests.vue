@@ -22,7 +22,8 @@
           </md-button>
           <md-button
             class="md-primary md-raised"
-            @click="doTokenCheckRequest()">
+            @click="doTokenCheckRequest()"
+          >
             Check Token
           </md-button>
           <md-button class="md-primary md-raised" @click="getAllUsers()">
@@ -59,9 +60,7 @@
 //
 // Imports
 //
-import {
-  RequestHandler
-} from "@/javascript/requests.js";
+import { RequestHandler } from "@/javascript/requests.js";
 
 // Local Setup
 export default {
@@ -91,7 +90,11 @@ export default {
   },
   methods: {
     doTokenRequest: function() {
-      var response = RequestHandler.getOAuthToken(this.form.username, this.form.password, this);
+      RequestHandler.getOAuthToken(
+        this.form.username,
+        this.form.password,
+        this
+      );
     },
     doTokenCheckRequest: function() {
       RequestHandler.checkToken(this);

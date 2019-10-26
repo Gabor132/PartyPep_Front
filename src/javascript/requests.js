@@ -63,20 +63,24 @@ RequestHandler.checkConfigured = function() {
     throw "RequestHandler must be configured using the .config() function";
   }
 };
-RequestHandler.config = function(baseUrl) {
+RequestHandler.config = function() {
   RequestHandler._baseUrl = process.env.VUE_APP_ROOT_API;
   RequestHandler.getClientID();
   RequestHandler._isConfigured = true;
 };
 
-RequestHandler.generateAuthenticationData = function(username, password){
-  try{
+RequestHandler.generateAuthenticationData = function(username, password) {
+  try {
     RequestHandler.checkConfigured();
-  }catch(err){
+  } catch (err) {
     RequestHandler.getClientID();
   }
-  return AuthenticationData(username, password, RequestHandler._clientCredentials);;
-}
+  return AuthenticationData(
+    username,
+    password,
+    RequestHandler._clientCredentials
+  );
+};
 //
 // Auxiliar to handle Responses and Errors from Axios
 //
@@ -134,13 +138,25 @@ RequestHandler._getFailureFunction = function(onFailure, error, vue) {
 //
 // Request functions
 //
-RequestHandler.getOAuthToken = function(username, password, vue, onSuccess, onFailure) {
+RequestHandler.getOAuthToken = function(
+  username,
+  password,
+  vue,
+  onSuccess,
+  onFailure
+) {
   RequestHandler.checkConfigured();
   var headers = RequestHandler._oauthHeaders;
   axios({
     method: "post",
     url: RequestHandler._baseUrl + "/oauth/token",
-    data: queryString.stringify(RequestHandler.generateAuthenticationData(username, password, RequestHandler._clientCredentials)),
+    data: queryString.stringify(
+      RequestHandler.generateAuthenticationData(
+        username,
+        password,
+        RequestHandler._clientCredentials
+      )
+    ),
     headers: headers
   })
     .then(response => {
@@ -157,24 +173,30 @@ RequestHandler.getClientID = function(onSuccess, onFailure) {
     method: "get",
     url: RequestHandler._baseUrl + "/app-security/clientId",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json"
     }
   })
     .then(response => {
       RequestHandler._clientCredentials = {
         username: response.data.client_id,
         password: response.data.client_secret
-      }
+      };
       return RequestHandler._getSuccessFunction(onSuccess, response);
     })
     .catch(error => {
       RequestHandler._getFailureFunction(onFailure, error);
     });
-}
+};
 
 //
 // Generic function to do GET Requests (TODO)
-RequestHandler.doGetRequest = function(subUrl, params, vue, onSuccess, onFailure) {
+RequestHandler.doGetRequest = function(
+  subUrl,
+  params,
+  vue,
+  onSuccess,
+  onFailure
+) {
   RequestHandler.checkConfigured();
   let headers = RequestHandler._getGeneralHeaders();
   if (typeof subUrl === undefined) {
@@ -195,7 +217,13 @@ RequestHandler.doGetRequest = function(subUrl, params, vue, onSuccess, onFailure
 
 //
 // Generic function to do POST Requests (TODO)
-RequestHandler.doPostRequest = function(subUrl,data,vue,onSuccess,onFailure) {
+RequestHandler.doPostRequest = function(
+  subUrl,
+  data,
+  vue,
+  onSuccess,
+  onFailure
+) {
   RequestHandler.checkConfigured();
   if (typeof subUrl === undefined) {
     subUrl = "";

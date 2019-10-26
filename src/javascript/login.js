@@ -1,10 +1,5 @@
-import {
-  RequestHandler
-} from "@/javascript/requests.js";
-
+//import { RequestHandler } from "@/javascript/requests.js";
 
 var loginHelper = {};
 
-loginHelper.checkToken = function(){
-
-}
+loginHelper.checkToken = function() {};

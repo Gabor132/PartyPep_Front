@@ -46,13 +46,10 @@
 //
 // Imports
 //
-import {
-  RequestHandler
-} from "@/javascript/requests.js";
+import { RequestHandler } from "@/javascript/requests.js";
 
 RequestHandler.config();
 RequestHandler.getOAuthToken("admin", "admin");
-console.info(data);
 
 // Local Setup
 export default {
@@ -62,12 +59,12 @@ export default {
       peps: []
     };
   },
-  mounted(){
+  mounted() {
     this.peps = [];
   },
   methods: {
-    updatePeps: function(){
-      this.peps =  RequestHandler.doGetRequest("/users/all");
+    updatePeps: function() {
+      this.peps = RequestHandler.doGetRequest("/users/all");
     }
   }
 };
