@@ -11,9 +11,24 @@ export default new Router({
       redirect: "/events"
     },
     {
-      path: "/mute",
-      name: "mute",
-      component: () => import("./views/Mute.vue")
+      path: "/events",
+      name: "events",
+      component: () => import("./views/MyEvents.vue")
+    },
+    {
+      path: "/peps",
+      name: "peps",
+      component: () => import("./views/MyPeps.vue")
+    },
+    {
+      path: "/groups",
+      name: "groups",
+      component: () => import("./views/MyGroups.vue")
+    },
+    {
+      path: "/messages",
+      name: "messages",
+      component: () => import("./views/MyMessages.vue")
     }
   ]
 });

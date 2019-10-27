@@ -1,9 +1,9 @@
 ----------------------------Template----------------------------------------------
 <template>
   <md-app class="md-waterfall">
-    <md-app-toolbar class="md-primary">
-      <peptitlebar :global="global" :user="user"/>
-      <!--<pepnavbar/> -->
+    <md-app-toolbar class="md-large md-primary">
+      <peptitlebar :global="global" :user="user" />
+      <pepnavbar />
     </md-app-toolbar>
     <md-app-drawer :md-active.sync="global.isMenuShown" md-swipeable>
       <pepnavdrawer :user="user" />

@@ -1,7 +1,7 @@
 <template>
   <div id="pepnavdrawer">
     <md-app-toolbar class="md-transparent" md-elevation="0">
-      <div class="md-title">Mute-A-Lot</div>
+      <div class="md-title">PartyPeps</div>
     </md-app-toolbar>
     <md-divider />
     <md-list>
