@@ -3,11 +3,11 @@
     <md-app-toolbar class="md-transparent" md-elevation="0">
       <div class="md-title">Mute-A-Lot</div>
     </md-app-toolbar>
-    <md-divider/>
+    <md-divider />
     <md-list>
       <md-list-item to="/profile">
         <md-icon>account_circle</md-icon>
-        <span class="md-list-item-text">{{user.name + " " + "Profile"}}</span>
+        <span class="md-list-item-text">{{ user.name + " " + "Profile" }}</span>
       </md-list-item>
       <md-list-item to="/about">
         <md-icon>help</md-icon>
@@ -27,5 +27,5 @@ export default {
 </script>
 --------------------------------------------------------------------------------
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons');
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons");
 </style>

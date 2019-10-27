@@ -7,38 +7,52 @@
       <md-card-content>
         <form>
           <md-field>
-            {{apiUrl}}
+            {{ apiUrl }}
           </md-field>
-            <md-field>
-              <label for="username">Username</label>
-              <md-input name="username" id="username" v-model="form.username"/>
-            </md-field>
-              <md-field>
-                <label for="password">Password</label>
-                <md-input name="password" id="password" v-model="form.password"/>
-              </md-field>
-              <md-field>
-                {{clientId}}
-              </md-field>
-              <md-field>
-                {{apiKey}}
-              </md-field>
           <md-field>
-            <label for="requestType">Request Type</label>
-            <md-select id="requestType" v-model="requestType">
-              <md-option value="POST">POST</md-option>
-              <md-option value="GET">GET</md-option>
-            </md-select>
+            <label for="username">Username</label>
+            <md-input name="username" id="username" v-model="form.username" />
           </md-field>
-          <md-button class="md-primary md-raised" @click="doRequest()">
-            Do Request
+          <md-field>
+            <label for="password">Password</label>
+            <md-input name="password" id="password" v-model="form.password" />
+          </md-field>
+          <md-button class="md-primary md-raised" @click="doTokenRequest()">
+            Get Token
+          </md-button>
+          <md-button
+            class="md-primary md-raised"
+            @click="doTokenCheckRequest()"
+          >
+            Check Token
+          </md-button>
+          <md-button class="md-primary md-raised" @click="getAllUsers()">
+            Get All Users
+          </md-button>
+          <md-button class="md-primary md-raised" @click="getClientId()">
+            Get ClientId
           </md-button>
         </form>
-        <p> Response:
-          {{response}}
-        </p>
       </md-card-content>
     </md-card>
+
+    <md-snackbar
+      :md-position="snackBarProp.position"
+      :md-duration="snackBarProp.duration"
+      :md-active.sync="snackBarProp.showSnackbar"
+      md-persistent
+    >
+      <span
+        >{{ snackBarProp.error.status }}
+        {{ snackBarProp.error.description }}</span
+      >
+      <md-button
+        v-if="snackBarProp.isError"
+        class="md-primary"
+        @click="snackBarProp.showSnackbar = false"
+        >Retry</md-button
+      >
+    </md-snackbar>
   </div>
 </template>
 --------------------------------------------------------------------------------
@@ -46,44 +60,50 @@
 //
 // Imports
 //
-import { requestHandler } from '@/javascript/requests.js';
+import { RequestHandler } from "@/javascript/requests.js";
+
 // Local Setup
 export default {
   name: "requests",
   data: function() {
     return {
+      snackBarProp: {
+        position: "center",
+        duration: 4000,
+        showSnackbar: false,
+        isError: false,
+        error: {
+          status: "",
+          description: ""
+        }
+      },
       form: {
-        url: "https://partypeps.herokuapp.com",
+        url: "http://localhost:8080",
         username: "admin",
         password: "admin",
         parameters: {
           param1: ""
         }
       },
-      response: "",
-      requestType: "POST",
-      grantType: process.env.VUE_APP_API_GRANT_TYPE,
-      apiUrl: process.env.VUE_APP_ROOT_API,
-      clientId: process.env.VUE_APP_API_CLIENT_ID,
-      apiKey: process.env.VUE_APP_API_KEY
-    }
+      apiUrl: process.env.VUE_APP_ROOT_API
+    };
   },
   methods: {
-    doRequest: function() {
-      var authorization = requestHandler.createAuthorizationHeader(this.clientId, this.apiKey);
-      var authenticationPayload = requestHandler.createAuthenticationData(this.grantType, this.clientId, this.form.username, this.form.password);
-      if(this.requestType === "POST"){
-        requestHandler._doOAuthPost(this.form.url, authenticationPayload, authorization,
-            function(response){
-              return response;
-            },
-            function(error){
-              return error;
-            }
-        );
-      }else{
-        requestHandler.checkToken(this.form.url);
-      }
+    doTokenRequest: function() {
+      RequestHandler.getOAuthToken(
+        this.form.username,
+        this.form.password,
+        this
+      );
+    },
+    doTokenCheckRequest: function() {
+      RequestHandler.checkToken(this);
+    },
+    getAllUsers: function() {
+      RequestHandler.doGetRequest("/users/all");
+    },
+    getClientId: function() {
+      RequestHandler.getClientID();
     }
   }
 };
