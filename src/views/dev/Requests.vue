@@ -72,14 +72,13 @@ export default {
       RequestHandler.doTokenCheck(this.$store.state);
     },
     getAllUsers: function() {
-      RequestHandler.doGetRequest("/users/all", {}, this.$store.state, undefined, undefined);
+      RequestHandler.doGetRequest("/users/all", {}, this.$store.state);
     },
     getClientId: function() {
       RequestHandler._getClientCredentials(this.$store.state);
     }
   }
 };
-
 </script>
 --------------------------------------------------------------------------------
 <style lang="scss"></style>
