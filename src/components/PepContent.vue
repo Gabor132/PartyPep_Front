@@ -8,11 +8,10 @@
 <script>
 //
 // Setup of pagecontent
-import pepserviceresponsebar from "@/components/PepServiceResponseBar.vue";
 import Pepserviceresponsebar from "./PepServiceResponseBar";
 export default {
   name: "pepcontent",
-  components: {Pepserviceresponsebar},
+  components: { Pepserviceresponsebar },
   props: ["peps"]
 };
 </script>

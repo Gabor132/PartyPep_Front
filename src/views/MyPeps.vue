@@ -55,14 +55,16 @@ export default {
       peps: []
     };
   },
-  mounted(){
+  mounted() {
     this.peps = this.updatePeps();
   },
   methods: {
     updatePeps: function() {
-      RequestHandler.doGetRequest("/users/all", {}, this.$store.state).then((data) => {
-        this.peps = data;
-      });
+      RequestHandler.doGetRequest("/users/all", {}, this.$store.state).then(
+        data => {
+          this.peps = data;
+        }
+      );
     }
   }
 };
