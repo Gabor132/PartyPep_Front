@@ -4,7 +4,18 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    serviceResponseBar: {
+      position: "center",
+      duration: 4000,
+      showSnackbar: false,
+      isError: false,
+      error: {
+        status: "",
+        description: ""
+      }
+    }
+  },
   mutations: {},
   actions: {}
 });

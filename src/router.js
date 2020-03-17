@@ -8,7 +8,10 @@ export default new Router({
   routes: [
     {
       path: "/",
-      redirect: "/events"
+      redirect: "/events",
+      meta: {
+        title: process.env.VUE_APP_TITLE
+      }
     },
     {
       path: "/events",

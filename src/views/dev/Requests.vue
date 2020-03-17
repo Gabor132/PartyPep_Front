@@ -35,24 +35,6 @@
         </form>
       </md-card-content>
     </md-card>
-
-    <md-snackbar
-      :md-position="snackBarProp.position"
-      :md-duration="snackBarProp.duration"
-      :md-active.sync="snackBarProp.showSnackbar"
-      md-persistent
-    >
-      <span
-        >{{ snackBarProp.error.status }}
-        {{ snackBarProp.error.description }}</span
-      >
-      <md-button
-        v-if="snackBarProp.isError"
-        class="md-primary"
-        @click="snackBarProp.showSnackbar = false"
-        >Retry</md-button
-      >
-    </md-snackbar>
   </div>
 </template>
 --------------------------------------------------------------------------------
@@ -67,16 +49,6 @@ export default {
   name: "requests",
   data: function() {
     return {
-      snackBarProp: {
-        position: "center",
-        duration: 4000,
-        showSnackbar: false,
-        isError: false,
-        error: {
-          status: "",
-          description: ""
-        }
-      },
       form: {
         url: "http://localhost:8080",
         username: "admin",
@@ -90,23 +62,24 @@ export default {
   },
   methods: {
     doTokenRequest: function() {
-      RequestHandler.getOAuthToken(
+      RequestHandler._getToken(
         this.form.username,
         this.form.password,
-        this
+        this.$store.state
       );
     },
     doTokenCheckRequest: function() {
-      RequestHandler.checkToken(this);
+      RequestHandler.doTokenCheck(this.$store.state);
     },
     getAllUsers: function() {
-      RequestHandler.doGetRequest("/users/all");
+      RequestHandler.doGetRequest("/users/all", {}, this.$store.state, undefined, undefined);
     },
     getClientId: function() {
-      RequestHandler.getClientID();
+      RequestHandler._getClientCredentials(this.$store.state);
     }
   }
 };
+
 </script>
 --------------------------------------------------------------------------------
 <style lang="scss"></style>

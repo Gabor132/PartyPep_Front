@@ -32,8 +32,6 @@
   </md-app>
 </template>
 ----------------------------Style----------------------------------------------
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vue-material"></script>
 <script>
 //
 // Imports
@@ -41,16 +39,35 @@ import pepcontent from "@/components/PepContent.vue";
 import pepnavbar from "@/components/PepNavBar.vue";
 import peptitlebar from "@/components/PepTitleBar.vue";
 import pepnavdrawer from "@/components/PepNavDrawer.vue";
+
 //
 // Setup of #app
 export default {
   name: "app",
   meta: {
-    title: "PartyPeps"
+    title: process.env.VUE_APP_TITLE,
+    bodyScript: [
+      {
+        src: "https://unpkg.com/vue"
+      },
+      {
+        src: "https://unpkg.com/vue-material"
+      }
+    ]
   },
   data: () => ({
     global: {
-      isMenuShown: false
+      isMenuShown: false,
+      serviceResponseBar: {
+        position: "center",
+        duration: 4000,
+        showSnackbar: false,
+        isError: false,
+        error: {
+          status: "",
+          description: ""
+        }
+      }
     },
     user: {
       age: 18,
@@ -58,18 +75,7 @@ export default {
       getAvatarText: function() {
         return this.name.charAt(0);
       }
-    },
-    peps: [
-      {
-        name: "Vasile"
-      },
-      {
-        name: "Georgica"
-      },
-      {
-        name: "Costel"
-      }
-    ]
+    }
   }),
   methods: {
     showMenu() {
