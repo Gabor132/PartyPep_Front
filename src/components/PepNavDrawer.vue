@@ -5,13 +5,19 @@
     </md-app-toolbar>
     <md-divider />
     <md-list>
-      <md-list-item to="/profile">
+      <md-list-item to="/profile" v-if="user !== null">
         <md-icon>account_circle</md-icon>
-        <span class="md-list-item-text">{{ user.name + " " + "Profile" }}</span>
+        <span class="md-list-item-text">{{
+          user.name + "'s " + "profile"
+        }}</span>
       </md-list-item>
       <md-list-item to="/about">
         <md-icon>help</md-icon>
         <span class="md-list-item-text">About</span>
+      </md-list-item>
+      <md-list-item @click="logout" v-if="user !== null">
+        <md-icon>face</md-icon>
+        <span class="md-list-item-text">Logout</span>
       </md-list-item>
     </md-list>
   </div>
@@ -22,7 +28,14 @@
 // Setup pepnavbar
 export default {
   name: "pepnavdrawer",
-  props: ["global", "user"]
+  props: ["global", "user"],
+  methods: {
+    logout: function() {
+      this.$store.dispatch("AUTH_LOGOUT").then(() => {
+        this.$router.go();
+      });
+    }
+  }
 };
 </script>
 --------------------------------------------------------------------------------

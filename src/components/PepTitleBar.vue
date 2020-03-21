@@ -9,10 +9,12 @@
     <span class="md-title" to="/">PartyPeps</span>
     <div class="md-toolbar-section-end">
       <md-button class="md-icon-button">
-        <md-avatar v-if="user !== undefined" class="md-avatar-icon">{{
-          user.getAvatarText()
-        }}</md-avatar>
-        <md-icon v-else>person</md-icon>
+        <router-link to="/profile">
+          <md-avatar v-if="user !== null" class="md-avatar-icon">
+            {{ this.getAvatarText(user.name) }}</md-avatar
+          >
+          <md-icon v-else>person</md-icon>
+        </router-link>
       </md-button>
     </div>
   </div>
@@ -28,8 +30,8 @@ export default {
     showMenu() {
       this.$emit("showMenuParent");
     },
-    isLoggedIn() {
-      this.user !== undefined;
+    getAvatarText(name) {
+      return name.charAt(0);
     }
   }
 };

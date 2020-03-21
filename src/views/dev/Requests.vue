@@ -42,7 +42,6 @@
 //
 // Imports
 //
-import { RequestHandler } from "@/javascript/requests.js";
 
 // Local Setup
 export default {
@@ -60,24 +59,7 @@ export default {
       apiUrl: process.env.VUE_APP_ROOT_API
     };
   },
-  methods: {
-    doTokenRequest: function() {
-      RequestHandler._getToken(
-        this.form.username,
-        this.form.password,
-        this.$store.state
-      );
-    },
-    doTokenCheckRequest: function() {
-      RequestHandler.doTokenCheck(this.$store.state);
-    },
-    getAllUsers: function() {
-      RequestHandler.doGetRequest("/users/all", {}, this.$store.state);
-    },
-    getClientId: function() {
-      RequestHandler._getClientCredentials(this.$store.state);
-    }
-  }
+  methods: {}
 };
 </script>
 --------------------------------------------------------------------------------

@@ -1,53 +1,90 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Store from "./store";
 
 Vue.use(Router);
+
+const ifNotAuthenticated = function(to, from, next) {
+  if (!Store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next("/events");
+};
+const ifAuthenticated = function(to, from, next) {
+  if (Store.getters.isAuthenticated) {
+    next();
+    return;
+  }
+  next("/login");
+};
 
 export default new Router({
   mode: "history",
   routes: [
     {
       path: "/",
-      redirect: "/events",
+      redirect: "/login",
       meta: {
         title: process.env.VUE_APP_TITLE
       }
     },
     {
+      path: "/login",
+      name: "login",
+      component: () => import("./views/Login.vue"),
+      beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("./views/Register.vue"),
+      beforeEnter: ifNotAuthenticated
+    },
+    {
       path: "/events",
       name: "events",
-      component: () => import("./views/MyEvents.vue")
+      component: () => import("./views/MyEvents.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/peps",
       name: "peps",
-      props: { default: true },
-      component: () => import("./views/MyPeps.vue")
+      component: () => import("./views/MyPeps.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/messages",
       name: "messages",
-      component: () => import("./views/MyMessages.vue")
+      component: () => import("./views/MyMessages.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/groups",
       name: "groups",
-      component: () => import("./views/MyGroups.vue")
+      component: () => import("./views/MyGroups.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/about",
       name: "about",
-      component: () => import("./views/About.vue")
+      component: () => import("./views/About.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/profile",
       name: "profile",
-      component: () => import("./views/Profile.vue")
+      props: {
+        user: Store.getters.getUser
+      },
+      component: () => import("./views/Profile.vue"),
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/requests",
       name: "requests",
-      component: () => import("./views/dev/Requests.vue")
+      component: () => import("./views/dev/Requests.vue"),
+      beforeEnter: ifAuthenticated
     }
   ]
 });

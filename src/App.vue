@@ -39,6 +39,8 @@ import pepcontent from "@/components/PepContent.vue";
 import pepnavbar from "@/components/PepNavBar.vue";
 import peptitlebar from "@/components/PepTitleBar.vue";
 import pepnavdrawer from "@/components/PepNavDrawer.vue";
+import axios from "axios";
+import Store from "./store";
 
 //
 // Setup of #app
@@ -69,13 +71,7 @@ export default {
         }
       }
     },
-    user: {
-      age: 18,
-      name: "Dragos",
-      getAvatarText: function() {
-        return this.name.charAt(0);
-      }
-    }
+    user: Store.state.user
   }),
   methods: {
     showMenu() {
@@ -87,6 +83,18 @@ export default {
     peptitlebar,
     pepnavbar,
     pepnavdrawer
+  },
+  created: function() {
+    axios.interceptors.response.use(undefined, function(err) {
+      return new Promise(function() {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          // if you ever get an unauthorized, logout the user
+          this.$store.dispatch("AUTH_LOGOUT");
+          // you can also redirect to /login if needed !
+        }
+        throw err;
+      });
+    });
   }
 };
 </script>
