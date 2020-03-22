@@ -53,6 +53,16 @@
               required
             />
           </md-field>
+          <md-checkbox
+            name="consent"
+            id="consent"
+            v-model="form.consent"
+            class="md-primary"
+            required
+            >Whatever personal data you put here, it's your fault you used it.
+            LOL. (don't worry, there is no email confirmation or other stuff
+            yet)
+          </md-checkbox>
         </form>
       </md-card-content>
       <md-card-actions>
@@ -79,7 +89,8 @@ export default {
         username: "",
         email: "",
         password: "",
-        passwordConfirm: ""
+        passwordConfirm: "",
+        consent: false
       }
     };
   },
@@ -107,6 +118,9 @@ export default {
         }
       }
 
+      if (!this.form.consent) {
+        this.errors.push("You need to consent, stop trying to escape it.");
+      }
       if (!this.form.username) {
         this.errors.push("Username required.");
       }

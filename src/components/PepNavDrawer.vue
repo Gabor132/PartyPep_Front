@@ -1,22 +1,25 @@
 <template>
   <div id="pepnavdrawer">
     <md-app-toolbar class="md-transparent" md-elevation="0">
+      <md-button class="md-icon-button" @click="hideDrawer">
+        <md-icon class="md-icon">arrow_back</md-icon>
+      </md-button>
       <div class="md-title">PartyPeps</div>
     </md-app-toolbar>
     <md-divider />
     <md-list>
-      <md-list-item to="/profile" v-if="user !== null">
+      <md-list-item to="/profile" @click="hideDrawer" v-if="user !== null">
         <md-icon>account_circle</md-icon>
         <span class="md-list-item-text">{{
           user.name + "'s " + "profile"
         }}</span>
       </md-list-item>
-      <md-list-item to="/about">
+      <md-list-item to="/about" @click="hideDrawer">
         <md-icon>help</md-icon>
         <span class="md-list-item-text">About</span>
       </md-list-item>
       <md-list-item @click="logout" v-if="user !== null">
-        <md-icon>face</md-icon>
+        <md-icon>no_meeting_room</md-icon>
         <span class="md-list-item-text">Logout</span>
       </md-list-item>
     </md-list>
@@ -32,8 +35,12 @@ export default {
   methods: {
     logout: function() {
       this.$store.dispatch("AUTH_LOGOUT").then(() => {
+        this.hideDrawer();
         this.$router.go();
       });
+    },
+    hideDrawer: function() {
+      this.$store.dispatch("TOGGLE_MENU");
     }
   }
 };

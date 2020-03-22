@@ -6,9 +6,6 @@
       </md-card-header>
       <md-divider />
       <md-card-content>
-        <h3 class="md-subhead">
-          You need to be logged in to access this app dammit!
-        </h3>
         <form class="login" @submit.prevent="login">
           <md-field>
             <label for="username">Username</label>

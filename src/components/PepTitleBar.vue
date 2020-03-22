@@ -1,9 +1,6 @@
 <template>
   <div class="md-toolbar-row" id="peptitlebar">
-    <md-button
-      class="md-icon-button"
-      @click="global.isMenuShown = !global.isMenuShown"
-    >
+    <md-button class="md-icon-button" @click="showMenu">
       <md-icon class="md-icon">menu</md-icon>
     </md-button>
     <span class="md-title" to="/">PartyPeps</span>
@@ -25,10 +22,10 @@
 // Setup pepnavbar
 export default {
   name: "peptitlebar",
-  props: ["global", "user"],
+  props: ["user"],
   methods: {
     showMenu() {
-      this.$emit("showMenuParent");
+      this.$store.dispatch("TOGGLE_MENU");
     },
     getAvatarText(name) {
       return name.charAt(0);

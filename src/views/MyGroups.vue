@@ -26,7 +26,12 @@
               </md-card-header>
               <md-card-content>
                 <span>Members: </span>
-                <a to="/profile" v-for="user in group.users_usernames" v-bind:key="user" md-with-hover>{{user}}
+                <a
+                  to="/profile"
+                  v-for="user in group.users_usernames"
+                  v-bind:key="user"
+                  md-with-hover
+                  >{{ user }}
                 </a>
               </md-card-content>
               <md-card-actions>
@@ -52,10 +57,9 @@
 </template>
 ----------------------------Script----------------------------------------------
 <script>
+import { RequestHandler } from "../javascript/requests";
 
-  import {RequestHandler} from "../javascript/requests";
-
-  export default {
+export default {
   name: "groups",
   data: function() {
     return {
@@ -66,13 +70,19 @@
   mounted() {
     this.getGroups();
   },
-  methods:{
+  methods: {
     getGroups: function() {
-      RequestHandler.doGetRequest("/groups/user/" + this.user.id, {}, this.$store.state).then((data) => {
-        this.groups = data;
-      }).catch(() => {
-        return [];
-      });
+      RequestHandler.doGetRequest(
+        "/groups/user/" + this.user.id,
+        {},
+        this.$store.state
+      )
+        .then(data => {
+          this.groups = data;
+        })
+        .catch(() => {
+          return [];
+        });
     }
   }
 };

@@ -2,10 +2,10 @@
 <template>
   <md-app class="md-waterfall">
     <md-app-toolbar class="md-large md-primary">
-      <peptitlebar :global="global" :user="user" />
+      <peptitlebar :user="user" />
       <pepnavbar />
     </md-app-toolbar>
-    <md-app-drawer :md-active.sync="global.isMenuShown" md-swipeable>
+    <md-app-drawer :md-active="this.$store.getters.showMenu" md-swipeable>
       <pepnavdrawer :user="user" />
     </md-app-drawer>
     <md-app-content>
@@ -58,24 +58,11 @@ export default {
     ]
   },
   data: () => ({
-    global: {
-      isMenuShown: false,
-      serviceResponseBar: {
-        position: "center",
-        duration: 4000,
-        showSnackbar: false,
-        isError: false,
-        error: {
-          status: "",
-          description: ""
-        }
-      }
-    },
     user: Store.state.user
   }),
   methods: {
     showMenu() {
-      this.isMenuShown = !this.isMenuShown;
+      this.$store.dispatch("TOGGLE_MENU");
     }
   },
   components: {

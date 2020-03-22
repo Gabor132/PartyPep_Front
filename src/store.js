@@ -14,6 +14,7 @@ const Store = new Vuex.Store({
     clientInfo: JSON.parse(sessionStorage.getItem("clientInfo")),
     user: JSON.parse(sessionStorage.getItem("user-details")),
     status: "",
+    isMenuShown: false,
     serviceResponseBar: {
       position: "center",
       duration: 4000,
@@ -59,9 +60,15 @@ const Store = new Vuex.Store({
     },
     USER_DETAILS_FAILURE: state => {
       state.status = "failed to get user details";
+    },
+    TOGGLE_MENU: state => {
+      state.isMenuShown = !state.isMenuShown;
     }
   },
   actions: {
+    TOGGLE_MENU: ({ commit }) => {
+      commit("TOGGLE_MENU");
+    },
     authStatus: state => state.status,
     RETRIEVE_USER: ({ commit }, user) => {
       return new Promise((resolve, reject) => {
@@ -151,7 +158,8 @@ const Store = new Vuex.Store({
   getters: {
     hasClient: state => !!state.clientInfo,
     isAuthenticated: state => !!state.token,
-    getUser: state => state.user
+    getUser: state => state.user,
+    showMenu: state => state.isMenuShown
   }
 });
 
