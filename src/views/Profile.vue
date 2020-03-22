@@ -15,9 +15,13 @@
             <p>Email: {{ user.email }}</p>
           </md-card-content>
           <md-card-actions>
-            <md-button class="md-raised md-primary">Edit</md-button>
-            <md-button class="md-raised md-primary">Change Password</md-button>
-            <md-button class="md-raised md-primary"
+            <md-button class="md-raised md-primary" :disabled="true"
+              >Edit</md-button
+            >
+            <md-button class="md-raised md-primary" :disabled="true"
+              >Change Password</md-button
+            >
+            <md-button class="md-raised md-primary" :disabled="true"
               >Deactivate Account</md-button
             >
             <md-button class="md-raised md-primary" @click="logout"

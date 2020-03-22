@@ -73,7 +73,7 @@ const Store = new Vuex.Store({
             id: null,
             name: user.username,
             email: null,
-            password: user.password
+            password: null
           }),
           headers: {
             "Content-Type": "application/json"

@@ -39,6 +39,7 @@ RequestHandler.doGetRequest = async function(
 
 //
 // Generic function to do POST Requests (TODO)
+
 RequestHandler.doPostRequest = async function(
   subUrl,
   data,
