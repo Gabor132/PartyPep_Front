@@ -11,7 +11,6 @@
             <md-card-header>
               <md-card-header-text>
                 <span class="md-title">{{ pep.name }}</span>
-                <p class="md-subhead">{{ pep.password }}</p>
               </md-card-header-text>
               <md-card-media class="md-medium">
                 <img
@@ -48,9 +47,6 @@
 //
 import { RequestHandler } from "@/javascript/requests.js";
 
-RequestHandler.config();
-RequestHandler.getOAuthToken("admin", "admin");
-
 // Local Setup
 export default {
   name: "peps",
@@ -60,11 +56,15 @@ export default {
     };
   },
   mounted() {
-    this.peps = [];
+    this.peps = this.updatePeps();
   },
   methods: {
     updatePeps: function() {
-      this.peps = RequestHandler.doGetRequest("/users/all");
+      RequestHandler.doGetRequest("/users/all", {}, this.$store.state).then(
+        data => {
+          this.peps = data;
+        }
+      );
     }
   }
 };

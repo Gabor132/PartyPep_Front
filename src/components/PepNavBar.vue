@@ -1,24 +1,34 @@
 <template>
   <div class="md-toolbar-row md-toolbar-offset" id="pepnavbar">
-    <md-tabs class="md-primary" md-alignment="centered">
+    <md-tabs
+      class="md-primary"
+      md-alignment="centered"
+      v-if="$store.getters.isAuthenticated"
+    >
       <md-tab
         id="tab-events"
         md-label="Events"
         to="/events"
         md-icon="location_city"
-      >
-      </md-tab>
-      <md-tab id="tab-peps" md-label="Peps" to="/peps" md-icon="emoji_people">
-      </md-tab>
-      <md-tab id="tab-groups" md-label="Groups" to="/groups" md-icon="group">
-      </md-tab>
+      ></md-tab>
+      <md-tab
+        id="tab-peps"
+        md-label="Peps"
+        to="/peps"
+        md-icon="emoji_people"
+      ></md-tab>
+      <md-tab
+        id="tab-groups"
+        md-label="Groups"
+        to="/groups"
+        md-icon="group"
+      ></md-tab>
       <md-tab
         id="tab-messages"
         md-label="Messages"
         to="/messages"
         md-icon="chat"
-      >
-      </md-tab>
+      ></md-tab>
       <md-tab
         id="tab-requests"
         md-label="Requests"

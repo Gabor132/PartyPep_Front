@@ -1,18 +1,17 @@
 <template>
   <div class="md-toolbar-row" id="peptitlebar">
-    <md-button
-      class="md-icon-button"
-      @click="global.isMenuShown = !global.isMenuShown"
-    >
+    <md-button class="md-icon-button" @click="showMenu">
       <md-icon class="md-icon">menu</md-icon>
     </md-button>
     <span class="md-title" to="/">PartyPeps</span>
     <div class="md-toolbar-section-end">
       <md-button class="md-icon-button">
-        <md-avatar v-if="user !== undefined" class="md-avatar-icon">{{
-          user.getAvatarText()
-        }}</md-avatar>
-        <md-icon v-else>person</md-icon>
+        <router-link to="/profile">
+          <md-avatar v-if="user !== null" class="md-avatar-icon">
+            {{ this.getAvatarText(user.name) }}</md-avatar
+          >
+          <md-icon v-else>person</md-icon>
+        </router-link>
       </md-button>
     </div>
   </div>
@@ -23,13 +22,13 @@
 // Setup pepnavbar
 export default {
   name: "peptitlebar",
-  props: ["global", "user"],
+  props: ["user"],
   methods: {
     showMenu() {
-      this.$emit("showMenuParent");
+      this.$store.dispatch("TOGGLE_MENU");
     },
-    isLoggedIn() {
-      this.user !== undefined;
+    getAvatarText(name) {
+      return name.charAt(0);
     }
   }
 };
