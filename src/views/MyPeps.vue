@@ -14,9 +14,11 @@
               </md-card-header-text>
               <md-card-media class="md-medium">
                 <img
+                  v-if="pep.picture !== undefined"
                   src="https://vuematerial.io/assets/examples/card-weather.png"
                   alt="Un Boss"
                 />
+                <md-icon v-else class="md-size-5x">person</md-icon>
               </md-card-media>
             </md-card-header>
             <md-card-content> </md-card-content>

@@ -23,15 +23,25 @@
                 <md-card-header-text>
                   <span class="md-title">{{ group.name }}</span>
                 </md-card-header-text>
+                <md-card-media class="md-medium">
+                  <img
+                    v-if="group.picture !== undefined"
+                    src="https://vuematerial.io/assets/examples/card-weather.png"
+                    alt="Un Boss"
+                  />
+                  <md-icon v-else class="md-size-5x">people</md-icon>
+                </md-card-media>
               </md-card-header>
               <md-card-content>
                 <span>Members: </span>
                 <a
                   to="/profile"
-                  v-for="user in group.users_usernames"
+                  v-for="user in group.usersUsernames"
                   v-bind:key="user"
-                  md-with-hover
-                  >{{ user }}
+                  class="md-with-hover"
+                  ><md-avatar class="md-avatar-icon">
+                    {{ user.charAt(0) }}</md-avatar
+                  >
                 </a>
               </md-card-content>
               <md-card-actions>

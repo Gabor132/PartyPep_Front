@@ -8,7 +8,7 @@
       <md-button class="md-icon-button">
         <router-link to="/profile">
           <md-avatar v-if="user !== null" class="md-avatar-icon">
-            {{ this.getAvatarText(user.name) }}</md-avatar
+            {{ user.name.charAt(0) }}</md-avatar
           >
           <md-icon v-else>person</md-icon>
         </router-link>
@@ -26,9 +26,6 @@ export default {
   methods: {
     showMenu() {
       this.$store.dispatch("TOGGLE_MENU");
-    },
-    getAvatarText(name) {
-      return name.charAt(0);
     }
   }
 };
