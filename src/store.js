@@ -14,6 +14,7 @@ const Store = new Vuex.Store({
     clientInfo: JSON.parse(sessionStorage.getItem("clientInfo")),
     user: JSON.parse(sessionStorage.getItem("user-details")),
     status: "",
+    env: process.env.VUE_APP_NODE_ENV,
     isMenuShown: false,
     serviceResponseBar: {
       position: "center",
@@ -159,7 +160,9 @@ const Store = new Vuex.Store({
     hasClient: state => !!state.clientInfo,
     isAuthenticated: state => !!state.token,
     getUser: state => state.user,
-    showMenu: state => state.isMenuShown
+    showMenu: state => state.isMenuShown,
+    isProduction: state => state.env === "production",
+    isDevelopment: state => state.env === "development"
   }
 });
 

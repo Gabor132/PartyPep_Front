@@ -30,10 +30,11 @@
         md-icon="chat"
       ></md-tab>
       <md-tab
+        v-if="this.isDevelopment()"
         id="tab-requests"
         md-label="Requests"
         to="/requests"
-        md-icon="chat"
+        md-icon="build"
       >
       </md-tab>
     </md-tabs>
@@ -43,8 +44,14 @@
 <script>
 //
 // Setup pepnavbar
+//
 export default {
-  name: "pepnavbar"
+  name: "pepnavbar",
+  methods: {
+    isDevelopment: function() {
+      return this.$store.getters.isDevelopment;
+    }
+  }
 };
 </script>
 --------------------------------------------------------------------------------
