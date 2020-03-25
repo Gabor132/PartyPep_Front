@@ -7,8 +7,20 @@ module.exports = {
     filename: "bundle.js"
   },
   resolve: {
-    extensions: [".js", ".jsx", ".vue"]
+    alias: {
+      vue$: "vue/dist/vue.esm.js"
+    },
+    extensions: ["*", ".js", ".vue", ".json"]
   },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true
+  },
+  performance: {
+    hints: false
+  },
+  devtool: "#eval-source-map",
   module: {
     rules: [
       {
@@ -25,3 +37,27 @@ module.exports = {
     ]
   }
 };
+
+if (process.env.NODE_ENV === "production") {
+  module.exports.devtool = "#source-map";
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    // eslint-disable-next-line no-undef
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: '"production"'
+      }
+    }),
+    // eslint-disable-next-line no-undef
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    // eslint-disable-next-line no-undef
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
+}
