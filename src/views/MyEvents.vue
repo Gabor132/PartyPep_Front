@@ -24,6 +24,7 @@
         :event="event"
       />
     </maincard>
+    <pepsbottombar></pepsbottombar>
   </div>
 </template>
 ----------------------------Script----------------------------------------------
@@ -31,10 +32,11 @@
 import { RequestHandler } from "../javascript/requests";
 import maincard from "../components/cards/MainCard.vue";
 import eventcard from "../components/cards/EventCard.vue";
-
+import pepsbottombar from "../components/PepsBottomBar";
 export default {
   name: "events",
   components: {
+    pepsbottombar: pepsbottombar,
     maincard: maincard,
     eventcard: eventcard
   },

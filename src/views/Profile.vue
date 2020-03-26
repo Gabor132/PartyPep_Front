@@ -18,9 +18,7 @@
       <md-divider />
       <md-card-content>
         <md-card-actions>
-          <md-button @click="logout"
-            >Logout</md-button
-          >
+          <md-button @click="logout">Logout</md-button>
         </md-card-actions>
       </md-card-content>
     </md-card>
@@ -38,13 +36,11 @@
         </md-card-area>
       </md-card-content>
       <md-card-actions>
-        <md-button @click="changeInfo"
-          >Edit</md-button
-        >
+        <md-button @click="changeInfo">Edit</md-button>
       </md-card-actions>
-    </md-card >
+    </md-card>
     <md-card v-if="!this.checkPicture()">
-      <md-card-header >
+      <md-card-header>
         <md-card-header-text>
           <h3 class="md-title">Upload Profile Picture</h3>
         </md-card-header-text>
@@ -54,7 +50,7 @@
         <md-card-area>
           <div v-if="previewImage">
             <md-card-media class="md-small">
-              <img :src="previewImage"/>
+              <img :src="previewImage" />
             </md-card-media>
           </div>
           <form class="uploadPhoto" @submit.prevent="this.uploadPhoto">
@@ -68,10 +64,7 @@
                 :disabled="true"
               />
             </md-field>
-            <md-button
-              type="submit"
-              @click="this.uploadPhoto"
-              :disabled="true"
+            <md-button type="submit" @click="this.uploadPhoto" :disabled="true"
               >Upload</md-button
             >
             <md-button

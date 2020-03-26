@@ -8,10 +8,12 @@
 <script>
 //
 // Setup of pagecontent
-import Pepserviceresponsebar from "./PepServiceResponseBar";
+import pepserviceresponsebar from "./PepServiceResponseBar";
 export default {
   name: "pepcontent",
-  components: { Pepserviceresponsebar },
+  components: {
+    pepserviceresponsebar: pepserviceresponsebar
+  },
   props: ["peps"]
 };
 </script>

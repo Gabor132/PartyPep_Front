@@ -22,8 +22,7 @@
           </md-button>
         </md-card-header>
         <md-divider v-if="pep.showDetails" />
-        <md-card-content v-if="pep.showDetails">
-        </md-card-content>
+        <md-card-content v-if="pep.showDetails"> </md-card-content>
         <md-card-actions v-if="pep.showDetails">
           <md-button class="md-primary">
             Profile
