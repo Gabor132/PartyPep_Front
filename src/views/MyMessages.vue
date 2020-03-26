@@ -5,13 +5,11 @@
       :title="myMessagesTitle"
       :emptyText="noMessagesText"
     >
-      <template>
-        <messagecard
-          v-for="message in messages"
-          v-bind:key="message.id"
-          :message="message"
-        />
-      </template>
+      <messagecard
+        v-for="message in messages"
+        v-bind:key="message.id"
+        :message="message"
+      />
     </maincard>
   </div>
 </template>

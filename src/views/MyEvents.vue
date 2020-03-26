@@ -7,26 +7,22 @@
       :title="myEventsTitle"
       :emptyText="noEventsText"
     >
-      <template>
-        <eventcard
-          v-for="event in myEvents"
-          v-bind:key="event.id"
-          :event="event"
-        ></eventcard>
-      </template>
+      <eventcard
+        v-for="event in myEvents"
+        v-bind:key="event.id"
+        :event="event"
+      ></eventcard>
     </maincard>
     <maincard
       :collection="allEvents"
       :title="allEventsTitle"
       :emptyText="noEventsText"
     >
-      <template>
-        <eventcard
-          v-for="event in allEvents"
-          v-bind:key="event.id"
-          :event="event"
-        />
-      </template>
+      <eventcard
+        v-for="event in allEvents"
+        v-bind:key="event.id"
+        :event="event"
+      />
     </maincard>
   </div>
 </template>

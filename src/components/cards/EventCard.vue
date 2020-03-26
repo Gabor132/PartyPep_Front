@@ -4,21 +4,15 @@
       <md-ripple>
         <md-card-header>
           <md-card-header-text>
-            <span class="md-title">{{ event.name }}</span>
+            <span class="md-title"><md-icon class="md-medium">local_bar</md-icon> {{ event.name }}</span>
           </md-card-header-text>
-          <md-button class="md-icon-button md-accent">
-            <md-icon v-if="event.showDetails" class="md-size-2x"
-              >keyboard_arrow_down</md-icon
-            >
-            <md-icon v-else class="md-size-2x">keyboard_arrow_right</md-icon>
-          </md-button>
         </md-card-header>
         <md-divider v-if="event.showDetails" />
         <md-card-content v-if="event.showDetails">
-          <p>Location: {{ event.location }}</p>
-          <p>Start of Event: {{ event.startOfEvent }}</p>
+          <p><md-icon class="md-small">location_on</md-icon> Location: {{ event.location }}</p>
+          <p><md-icon class="md-small">event</md-icon> Start of Event: {{ event.startOfEvent }}</p>
           <span
-            >Invitees:
+            ><md-icon class="md-small">people</md-icon> Invitees:
             <span v-if="event.invitedUsers.length === 0">None</span>
           </span>
           <div v-if="event.invitedUsers.length > 0">
