@@ -4,11 +4,24 @@
       <md-ripple>
         <md-card-header>
           <md-card-header-text>
-            <span class="md-title"
-              ><md-icon class="md-medium">local_bar</md-icon>
-              {{ event.name }}</span
-            >
+            <span class="md-title">{{ event.name }}</span>
           </md-card-header-text>
+          <md-card-media class="md-medium" v-if="event.showDetails">
+            <img
+              v-if="event.picture !== undefined"
+              src="https://vuematerial.io/assets/examples/card-weather.png"
+              alt="Un Boss"
+            />
+            <md-icon v-else class="md-size-4x">local_bar</md-icon>
+          </md-card-media>
+          <md-avatar v-else class="md-avatar-icon">
+            <img
+              v-if="event.picture !== undefined"
+              src="https://vuematerial.io/assets/examples/card-weather.png"
+              alt="Un Boss"
+            />
+            <md-icon v-else class="md-small">local_bar</md-icon>
+          </md-avatar>
         </md-card-header>
         <md-divider v-if="event.showDetails" />
         <md-card-content v-if="event.showDetails">
@@ -38,7 +51,7 @@
           <md-button class="md-primary">
             Subscribe
           </md-button>
-          <md-button class="md-primary">
+          <md-button class="md-primary" @click="share">
             Share
           </md-button>
           <md-button class="md-primary">
@@ -51,6 +64,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-console
 /**
  * Imports
  */
@@ -68,7 +82,8 @@ export default {
     toggleEventDetails: function(event) {
       event.showDetails = !event.showDetails;
       this.$forceUpdate();
-    }
+    },
+    share: function() {}
   }
 };
 </script>

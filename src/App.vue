@@ -89,6 +89,7 @@ export default {
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons");
 @import "src/assets/scss/_theme.scss";
+@import "src/assets/scss/main.scss";
 #app {
   font-family: "Roboto", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

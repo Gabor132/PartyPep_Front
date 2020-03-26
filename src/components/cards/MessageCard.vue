@@ -11,12 +11,6 @@
               <a>{{ message.groupName }}</a>
             </span>
           </md-card-header-text>
-          <md-button class="md-icon-button md-accent">
-            <md-icon v-if="message.showDetails" class="md-size-2x"
-              >keyboard_arrow_down</md-icon
-            >
-            <md-icon v-else class="md-size-2x">keyboard_arrow_right</md-icon>
-          </md-button>
         </md-card-header>
         <md-divider v-if="message.showDetails" />
         <md-card-content v-if="message.showDetails">

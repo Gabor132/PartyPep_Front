@@ -6,7 +6,7 @@
           <md-card-header-text>
             <span class="md-title">{{ group.name }}</span>
           </md-card-header-text>
-          <md-card-media class="md-medium">
+          <md-card-media class="md-medium" v-if="group.showDetails">
             <img
               v-if="group.picture !== undefined"
               src="https://vuematerial.io/assets/examples/card-weather.png"
@@ -14,12 +14,14 @@
             />
             <md-icon v-else class="md-size-5x">people</md-icon>
           </md-card-media>
-          <md-button class="md-icon-button md-accent">
-            <md-icon v-if="group.showDetails" class="md-size-2x"
-              >keyboard_arrow_down</md-icon
-            >
-            <md-icon v-else class="md-size-2x">keyboard_arrow_right</md-icon>
-          </md-button>
+          <md-avatar v-else class="md-avatar-icon">
+            <img
+              v-if="group.picture !== undefined"
+              src="https://vuematerial.io/assets/examples/card-weather.png"
+              alt="Un Boss"
+            />
+            <md-icon v-else class="md-small">people</md-icon>
+          </md-avatar>
         </md-card-header>
         <md-divider v-if="group.showDetails" />
         <md-card-content v-if="group.showDetails">

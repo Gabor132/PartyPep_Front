@@ -1,5 +1,7 @@
 <template>
-  <div id="AddingPage"></div>
+  <div id="AddingPage">
+
+  </div>
 </template>
 
 <script>
