@@ -1,6 +1,6 @@
 <template>
   <div class="profile">
-    <md-card>
+    <md-card class="md-primary">
       <md-card-header>
         <md-card-header-text>
           <h3 class="md-title">{{ user.name }}</h3>
@@ -18,13 +18,13 @@
       <md-divider />
       <md-card-content>
         <md-card-actions>
-          <md-button class="md-raised md-primary" @click="logout"
+          <md-button @click="logout"
             >Logout</md-button
           >
         </md-card-actions>
       </md-card-content>
     </md-card>
-    <md-card>
+    <md-card class="md-primary">
       <md-card-header>
         <md-card-header-text>
           <h3 class="md-title">About</h3>
@@ -38,13 +38,13 @@
         </md-card-area>
       </md-card-content>
       <md-card-actions>
-        <md-button class="md-raised md-primary" @click="changeInfo"
+        <md-button @click="changeInfo"
           >Edit</md-button
         >
       </md-card-actions>
-    </md-card>
+    </md-card >
     <md-card v-if="!this.checkPicture()">
-      <md-card-header>
+      <md-card-header >
         <md-card-header-text>
           <h3 class="md-title">Upload Profile Picture</h3>
         </md-card-header-text>
@@ -54,7 +54,7 @@
         <md-card-area>
           <div v-if="previewImage">
             <md-card-media class="md-small">
-              <img :src="previewImage" />
+              <img :src="previewImage"/>
             </md-card-media>
           </div>
           <form class="uploadPhoto" @submit.prevent="this.uploadPhoto">
@@ -65,18 +65,18 @@
                 placeholder="Profile Picture"
                 class=""
                 @change="uploadPhoto"
+                :disabled="true"
               />
             </md-field>
             <md-button
               type="submit"
-              class="md-primary md-raised"
               @click="this.uploadPhoto"
+              :disabled="true"
               >Upload</md-button
             >
             <md-button
               :disabled="!previewImage"
               type="submit"
-              class="md-accent md-raised"
               @click="this.deletePhoto"
               >Delete Image</md-button
             >

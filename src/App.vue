@@ -35,10 +35,10 @@
 <script>
 //
 // Imports
-import pepcontent from "@/components/PepContent.vue";
-import pepnavbar from "@/components/PepNavBar.vue";
-import peptitlebar from "@/components/PepTitleBar.vue";
-import pepnavdrawer from "@/components/PepNavDrawer.vue";
+import pepcontent from "./components/PepContent.vue";
+import pepnavbar from "./components/PepNavBar.vue";
+import peptitlebar from "./components/PepTitleBar.vue";
+import pepnavdrawer from "./components/PepNavDrawer.vue";
 import axios from "axios";
 import Store from "./store";
 

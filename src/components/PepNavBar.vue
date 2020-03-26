@@ -9,7 +9,7 @@
         id="tab-events"
         md-label="Events"
         to="/events"
-        md-icon="location_city"
+        md-icon="local_bar"
       ></md-tab>
       <md-tab
         id="tab-peps"

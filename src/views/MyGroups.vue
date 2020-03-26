@@ -1,80 +1,33 @@
 ----------------------------Template----------------------------------------------
 <template>
   <div class="groups">
-    <md-card class="mainCard">
-      <md-card-header>
-        <h1 class="md-title">My Groups</h1>
-      </md-card-header>
-      <md-divider />
-      <md-card-content>
-        <div v-if="groups.length === 0">
-          <md-card md-with-hover>
-            <md-ripple>
-              <md-card-content>
-                <div>No Groups</div>
-              </md-card-content>
-            </md-ripple>
-          </md-card>
-        </div>
-        <div v-else>
-          <md-card v-for="group in groups" v-bind:key="group.id" md-with-hover>
-            <md-ripple>
-              <md-card-header>
-                <md-card-header-text>
-                  <span class="md-title">{{ group.name }}</span>
-                </md-card-header-text>
-                <md-card-media class="md-medium">
-                  <img
-                    v-if="group.picture !== undefined"
-                    src="https://vuematerial.io/assets/examples/card-weather.png"
-                    alt="Un Boss"
-                  />
-                  <md-icon v-else class="md-size-5x">people</md-icon>
-                </md-card-media>
-              </md-card-header>
-              <md-card-content>
-                <span>Members: </span>
-                <a
-                  to="/profile"
-                  v-for="user in group.usersUsernames"
-                  v-bind:key="user"
-                  class="md-with-hover"
-                  ><md-avatar class="md-avatar-icon">
-                    {{ user.charAt(0) }}</md-avatar
-                  >
-                </a>
-              </md-card-content>
-              <md-card-actions>
-                <md-button class="md-primary">
-                  Messages
-                </md-button>
-                <md-button class="md-primary">
-                  Add Pep
-                </md-button>
-                <md-button class="md-primary">
-                  Get out
-                </md-button>
-              </md-card-actions>
-            </md-ripple>
-          </md-card>
-        </div>
-      </md-card-content>
-    </md-card>
-    <md-button class="md-fab md-fab-bottom-right md-fixed" md-ripple>
-      <md-icon>add</md-icon>
-    </md-button>
+    <maincard
+      :collection="groups"
+      :title="myGroupsTitle"
+      :emptyText="noGroupsText"
+    >
+      <groupcard v-for="group in groups" v-bind:key="group.id" :group="group" />
+    </maincard>
   </div>
 </template>
 ----------------------------Script----------------------------------------------
 <script>
 import { RequestHandler } from "../javascript/requests";
+import maincard from "../components/cards/MainCard";
+import groupcard from "../components/cards/GroupCard";
 
 export default {
   name: "groups",
+  components: {
+    maincard,
+    groupcard
+  },
   data: function() {
     return {
       user: this.$store.getters.getUser,
-      groups: []
+      groups: [],
+      myGroupsTitle: "My Groups",
+      noGroupsText: "No Groups"
     };
   },
   mounted() {
