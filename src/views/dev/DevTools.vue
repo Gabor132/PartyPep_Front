@@ -1,8 +1,8 @@
 <template>
-  <div id="requests">
+  <div id="devtools">
     <md-card>
       <md-card-header>
-        <span class="md-title">Test Requests</span>
+        <span class="md-title">DEV Tools</span>
       </md-card-header>
       <md-card-content>
         <form>
@@ -17,23 +17,13 @@
             <label for="password">Password</label>
             <md-input name="password" id="password" v-model="form.password" />
           </md-field>
-          <md-button class="md-primary md-raised" @click="doTokenRequest()">
-            Get Token
-          </md-button>
-          <md-button
-            class="md-primary md-raised"
-            @click="doTokenCheckRequest()"
-          >
-            Check Token
-          </md-button>
-          <md-button class="md-primary md-raised" @click="getAllUsers()">
-            Get All Users
-          </md-button>
-          <md-button class="md-primary md-raised" @click="getClientId()">
-            Get ClientId
-          </md-button>
         </form>
       </md-card-content>
+      <md-card-actions>
+        <md-button>
+          Do Stuff
+        </md-button>
+      </md-card-actions>
     </md-card>
   </div>
 </template>
@@ -45,13 +35,13 @@
 
 // Local Setup
 export default {
-  name: "requests",
+  name: "devtools",
   data: function() {
     return {
       form: {
         url: "http://localhost:8080",
-        username: "admin",
-        password: "admin",
+        username: "",
+        password: "",
         parameters: {
           param1: ""
         }

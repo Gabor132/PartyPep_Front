@@ -81,9 +81,9 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
-      path: "/requests",
-      name: "requests",
-      component: () => import("./views/dev/Requests.vue"),
+      path: "/devtools",
+      name: "devtools",
+      component: () => import("./views/dev/DevTools.vue"),
       beforeEnter: ifAuthenticated
     }
   ]

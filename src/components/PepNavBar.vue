@@ -32,8 +32,8 @@
       <md-tab
         v-if="this.isDevelopment()"
         id="tab-requests"
-        md-label="Requests"
-        to="/requests"
+        md-label="Dev Tools"
+        to="/devtools"
         md-icon="build"
       >
       </md-tab>
