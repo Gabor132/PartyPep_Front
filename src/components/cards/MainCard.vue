@@ -16,7 +16,7 @@
       </div>
       <md-divider />
       <md-card-content v-if="showDetails">
-        <div v-if="collection.length === 0">
+        <div class="md-main-card-holder" v-if="collection.length === 0">
           <md-card md-with-hover>
             <md-ripple>
               <md-card-content>
