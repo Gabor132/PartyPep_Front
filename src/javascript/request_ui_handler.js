@@ -27,7 +27,6 @@ RequestUIHandler._getTokenRequestResponseHandler = function(storeState) {
 
 RequestUIHandler._genericRequestErrorHandler = function(error, storeState) {
   // TODO: Replace with error component
-  //console.warn(error.response);
   if (storeState !== undefined) {
     storeState.serviceResponseBar.showSnackbar = true;
     storeState.serviceResponseBar.isError = true;
