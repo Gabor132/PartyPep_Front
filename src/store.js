@@ -15,6 +15,11 @@ const Store = new Vuex.Store({
     user: JSON.parse(sessionStorage.getItem("user-details")),
     myPeps: [],
     allPeps: [],
+    myEvents: [],
+    allEvents: [],
+    myGroups: [],
+    myPrivateMessages: [],
+    myGroupMessages: [],
     status: "",
     env: process.env.VUE_APP_NODE_ENV,
     isMenuShown: false,
@@ -106,6 +111,33 @@ const Store = new Vuex.Store({
             break;
           }
         }
+      }
+    },
+    GET_ALL_EVENTS: (state, events) => {
+      state.allEvents = events;
+      for (let index in state.allEvents) {
+        state.allEvents[index].showDetails = false;
+      }
+    },
+    GET_MY_EVENTS: (state, events) => {
+      state.myEvents = events;
+      for (let index in state.myEvents) {
+        state.myEvents[index].showDetails = false;
+      }
+    },
+    GET_MY_GROUPS: (state, groups) => {
+      state.myGroups = groups;
+    },
+    GET_MY_PRIVATE_MESSAGES: (state, messages) => {
+      state.myPrivateMessages = messages;
+      for (let index in state.myPrivateMessages) {
+        state.myPrivateMessages[index].showDetails = false;
+      }
+    },
+    GET_MY_GROUP_MESSAGES: (state, messages) => {
+      state.myGroupMessages = messages;
+      for (let index in state.myGroupMessages) {
+        state.myGroupMessages[index].showDetails = false;
       }
     }
   },
@@ -207,6 +239,41 @@ const Store = new Vuex.Store({
       RequestHandler.doGetRequest("/users/" + pep.name, {}).then(data => {
         commit("GET_PEP", data);
       });
+    },
+    GET_ALL_EVENTS: ({ commit }) => {
+      RequestHandler.doGetRequest("/events/all", {}).then(data => {
+        commit("GET_ALL_EVENTS", data);
+      });
+    },
+    GET_MY_EVENTS: ({ commit }) => {
+      RequestHandler.doGetRequest("/events/myevents", {}).then(data => {
+        commit("GET_MY_EVENTS", data);
+      });
+    },
+    GET_MY_GROUPS: ({ commit }, userId) => {
+      RequestHandler.doGetRequest("/groups/user/" + userId, {}).then(data => {
+        commit("GET_MY_GROUPS", data);
+      });
+    },
+    GET_MY_PRIVATE_MESSAGES: ({ commit }, withRead) => {
+      if (withRead === undefined) {
+        withRead = false;
+      }
+      RequestHandler.doGetRequest("/messages/private/" + withRead, {}).then(
+        data => {
+          commit("GET_MY_PRIVATE_MESSAGES", data);
+        }
+      );
+    },
+    GET_MY_GROUP_MESSAGES: ({ commit }, withRead) => {
+      if (withRead === undefined) {
+        withRead = false;
+      }
+      RequestHandler.doGetRequest("/messages/group/" + withRead, {}).then(
+        data => {
+          commit("GET_MY_GROUP_MESSAGES", data);
+        }
+      );
     }
   },
   getters: {
@@ -217,7 +284,12 @@ const Store = new Vuex.Store({
     isProduction: state => state.env === "production",
     isDevelopment: state => state.env === "development",
     getAllPeps: state => state.allPeps,
-    getMyPeps: state => state.myPeps
+    getMyPeps: state => state.myPeps,
+    getAllEvents: state => state.allEvents,
+    getMyEvents: state => state.myEvents,
+    getMyGroups: state => state.myGroups,
+    getMyPrivateMessages: state => state.myPrivateMessages,
+    getMyGroupMessages: state => state.myGroupMessages
   }
 });
 

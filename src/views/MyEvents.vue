@@ -1,16 +1,22 @@
 ----------------------------Template----------------------------------------------
 <template>
   <div class="events">
-    <maincard :collection="myEvents" :pageDetails="myEventsPage">
+    <maincard
+      :collection="this.$store.getters.getMyEvents"
+      :pageDetails="myEventsPage"
+    >
       <eventcard
-        v-for="event in myEvents"
+        v-for="event in this.$store.getters.getMyEvents"
         v-bind:key="event.id"
         :event="event"
       ></eventcard>
     </maincard>
-    <maincard :collection="allEvents" :pageDetails="allEventsPage">
+    <maincard
+      :collection="this.$store.getters.getAllEvents"
+      :pageDetails="allEventsPage"
+    >
       <eventcard
-        v-for="event in allEvents"
+        v-for="event in this.$store.getters.getAllEvents"
         v-bind:key="event.id"
         :event="event"
       />
@@ -19,9 +25,10 @@
 </template>
 ----------------------------Script----------------------------------------------
 <script>
-import { RequestHandler } from "../javascript/requests";
+// Imports
 import maincard from "../components/cards/MainCard.vue";
 import eventcard from "../components/cards/EventCard.vue";
+// Exports
 export default {
   name: "events",
   components: {
@@ -42,40 +49,13 @@ export default {
         pageKey: 1,
         pageShowDetails: false,
         pageNoText: "No Events"
-      },
-      allEvents: [],
-      myEvents: []
+      }
     };
   },
   mounted() {
-    this.getAllEvents();
-    this.getMyEvents();
+    this.$store.dispatch("GET_ALL_EVENTS");
+    this.$store.dispatch("GET_MY_EVENTS");
   },
-  methods: {
-    getAllEvents: function() {
-      RequestHandler.doGetRequest("/events/all", {})
-        .then(data => {
-          this.allEvents = data;
-          for (let index in this.allEvents) {
-            this.allEvents[index].showDetails = false;
-          }
-        })
-        .catch(() => {
-          return [];
-        });
-    },
-    getMyEvents: function() {
-      RequestHandler.doGetRequest("/events/myevents", {})
-        .then(data => {
-          this.myEvents = data;
-          for (let index in this.myEvents) {
-            this.myEvents[index].showDetails = false;
-          }
-        })
-        .catch(() => {
-          return [];
-        });
-    }
-  }
+  methods: {}
 };
 </script>

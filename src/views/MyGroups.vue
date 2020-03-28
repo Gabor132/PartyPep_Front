@@ -1,14 +1,20 @@
 ----------------------------Template----------------------------------------------
 <template>
   <div class="groups">
-    <maincard :collection="groups" :pageDetails="myGroupsPage">
-      <groupcard v-for="group in groups" v-bind:key="group.id" :group="group" />
+    <maincard
+      :collection="this.$store.getters.getMyGroups"
+      :pageDetails="myGroupsPage"
+    >
+      <groupcard
+        v-for="group in this.$store.getters.getMyGroups"
+        v-bind:key="group.id"
+        :group="group"
+      />
     </maincard>
   </div>
 </template>
 ----------------------------Script----------------------------------------------
 <script>
-import { RequestHandler } from "../javascript/requests";
 import maincard from "../components/cards/MainCard";
 import groupcard from "../components/cards/GroupCard";
 
@@ -21,7 +27,6 @@ export default {
   data: function() {
     return {
       user: this.$store.getters.getUser,
-      groups: [],
       myGroupsPage: {
         pageTitle: "My Groups",
         pageKey: 0,
@@ -31,18 +36,8 @@ export default {
     };
   },
   mounted() {
-    this.getGroups();
+    this.$store.dispatch("GET_MY_GROUPS", this.user.id);
   },
-  methods: {
-    getGroups: function() {
-      RequestHandler.doGetRequest("/groups/user/" + this.user.id, {})
-        .then(data => {
-          this.groups = data;
-        })
-        .catch(() => {
-          return [];
-        });
-    }
-  }
+  methods: {}
 };
 </script>

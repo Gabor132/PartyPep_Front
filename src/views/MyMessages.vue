@@ -1,8 +1,21 @@
 <template>
   <div id="messages">
-    <maincard :collection="messages" :pageDetails="myMessagesPage">
+    <maincard
+      :collection="this.$store.getters.getMyPrivateMessages"
+      :pageDetails="myPrivateMessagesPage"
+    >
       <messagecard
-        v-for="message in messages"
+        v-for="message in this.$store.getters.getMyPrivateMessages"
+        v-bind:key="message.id"
+        :message="message"
+      />
+    </maincard>
+    <maincard
+      :collection="this.$store.getters.getMyGroupMessages"
+      :pageDetails="myGroupMessagesPage"
+    >
+      <messagecard
+        v-for="message in this.$store.getters.getMyGroupMessages"
         v-bind:key="message.id"
         :message="message"
       />
@@ -15,10 +28,9 @@
 // Imports
 //
 // Setup view
-import { RequestHandler } from "../javascript/requests";
 import maincard from "../components/cards/MainCard";
 import messagecard from "../components/cards/MessageCard";
-
+// Exports
 export default {
   name: "messages",
   components: {
@@ -28,32 +40,25 @@ export default {
   data: function() {
     return {
       user: this.$store.getters.getUser,
-      messages: [],
-      myMessagesPage: {
-        pageTitle: "My Messages",
+      myPrivateMessagesPage: {
+        pageTitle: "My Private Messages",
         pageKey: 0,
         pageShowDetails: false,
-        pageNoText: "No Messages"
+        pageNoText: "No Private Messages"
+      },
+      myGroupMessagesPage: {
+        pageTitle: "My Group Messages",
+        pageKey: 1,
+        pageShowDetails: false,
+        pageNoText: "No Group Messages"
       }
     };
   },
   mounted() {
-    this.getMessages();
+    this.$store.dispatch("GET_MY_PRIVATE_MESSAGES");
+    this.$store.dispatch("GET_MY_GROUP_MESSAGES");
   },
-  methods: {
-    getMessages: function() {
-      RequestHandler.doGetRequest("/messages/all", {})
-        .then(data => {
-          this.messages = data;
-          for (let index in this.messages) {
-            this.messages[index].showDetails = false;
-          }
-        })
-        .catch(() => {
-          return [];
-        });
-    }
-  }
+  methods: {}
 };
 </script>
 --------------------------------------------------------------------------------
