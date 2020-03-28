@@ -4,10 +4,10 @@
       <div @click="toggleDetails()">
         <md-card-header>
           <md-card-header-text>
-            <h1 class="md-title">{{ title }}</h1>
+            <h1 class="md-title">{{ pageDetails.pageTitle }}</h1>
           </md-card-header-text>
           <md-button class="md-icon-button md-accent">
-            <md-icon v-if="showDetails" class="md-size-2x"
+            <md-icon v-if="this.pageDetails.pageShowDetails" class="md-size-2x"
               >keyboard_arrow_down</md-icon
             >
             <md-icon v-else class="md-size-2x">keyboard_arrow_right</md-icon>
@@ -15,12 +15,12 @@
         </md-card-header>
       </div>
       <md-divider />
-      <md-card-content v-if="showDetails">
+      <md-card-content v-if="pageDetails.pageShowDetails">
         <div class="md-main-card-holder" v-if="collection.length === 0">
           <md-card md-with-hover>
             <md-ripple>
               <md-card-content>
-                <div>{{ emptyText }}</div>
+                <div>{{ pageDetails.pageNoText }}</div>
               </md-card-content>
             </md-ripple>
           </md-card>
@@ -36,15 +36,13 @@
 <script>
 export default {
   name: "maincard",
-  props: ["title", "emptyText", "collection"],
+  props: ["collection", "pageDetails"],
   data: function() {
-    return {
-      showDetails: false
-    };
+    return {};
   },
   methods: {
     toggleDetails: function() {
-      this.showDetails = !this.showDetails;
+      this.pageDetails.pageShowDetails = !this.pageDetails.pageShowDetails;
     }
   }
 };

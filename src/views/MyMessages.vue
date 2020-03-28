@@ -1,10 +1,6 @@
 <template>
   <div id="messages">
-    <maincard
-      :collection="messages"
-      :title="myMessagesTitle"
-      :emptyText="noMessagesText"
-    >
+    <maincard :collection="messages" :pageDetails="myMessagesPage">
       <messagecard
         v-for="message in messages"
         v-bind:key="message.id"
@@ -33,8 +29,12 @@ export default {
     return {
       user: this.$store.getters.getUser,
       messages: [],
-      myMessagesTitle: "My Messages",
-      noMessagesText: "No messages"
+      myMessagesPage: {
+        pageTitle: "My Messages",
+        pageKey: 0,
+        pageShowDetails: false,
+        pageNoText: "No Messages"
+      }
     };
   },
   mounted() {
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     getMessages: function() {
-      RequestHandler.doGetRequest("/messages/all", {}, this.$store.state)
+      RequestHandler.doGetRequest("/messages/all", {})
         .then(data => {
           this.messages = data;
           for (let index in this.messages) {

@@ -34,13 +34,13 @@
             {{ event.startOfEvent }}
           </p>
           <span
-            ><md-icon class="md-small">people</md-icon> Invitees:
-            <span v-if="event.invitedUsers.length === 0">None</span>
+            ><md-icon class="md-small">people</md-icon> Subscribed Users:
+            <span v-if="event.subscribedUsers.length === 0">None</span>
           </span>
-          <div v-if="event.invitedUsers.length > 0">
+          <div v-if="event.subscribedUsers.length > 0">
             <a
               to="/profile"
-              v-for="user in event.invitedUsers"
+              v-for="user in event.subscribedUsers"
               v-bind:key="user"
               md-with-hover
               >{{ user }}

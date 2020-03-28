@@ -13,6 +13,8 @@ const Store = new Vuex.Store({
     userToken: JSON.parse(sessionStorage.getItem("user-token")),
     clientInfo: JSON.parse(sessionStorage.getItem("clientInfo")),
     user: JSON.parse(sessionStorage.getItem("user-details")),
+    myPeps: [],
+    allPeps: [],
     status: "",
     env: process.env.VUE_APP_NODE_ENV,
     isMenuShown: false,
@@ -64,25 +66,60 @@ const Store = new Vuex.Store({
     },
     TOGGLE_MENU: state => {
       state.isMenuShown = !state.isMenuShown;
+    },
+    GET_ALL_PEPS: (state, peps) => {
+      state.allPeps = peps;
+      for (let index in state.allPeps) {
+        state.allPeps[index].showDetails = false;
+        state.allPeps[index].showMessagePrompt = false;
+      }
+    },
+    GET_MY_PEPS: (state, peps) => {
+      state.myPeps = peps;
+      for (let index in state.myPeps) {
+        state.myPeps[index].showDetails = false;
+        state.myPeps[index].showMessagePrompt = false;
+      }
+    },
+    GET_PEP: (state, pep) => {
+      // eslint-disable-next-line no-console
+      console.log(pep);
+      if (pep !== undefined && pep !== null) {
+        let found = false;
+        for (let index in state.myPeps) {
+          if (state.myPeps[index].name === pep.name) {
+            found = true;
+            if (pep.canMessage) {
+              state.myPeps[index] = pep;
+            } else {
+              state.myPeps.splice(index, 1);
+            }
+            break;
+          }
+        }
+        if (!found && pep.canMessage) {
+          state.myPeps.push(pep);
+        }
+        for (let index in state.allPeps) {
+          if (state.allPeps[index].name === pep.name) {
+            state.allPeps[index] = pep;
+            break;
+          }
+        }
+      }
     }
   },
   actions: {
     TOGGLE_MENU: ({ commit }) => {
       commit("TOGGLE_MENU");
     },
-    authStatus: state => state.status,
-    RETRIEVE_USER: ({ commit }, user) => {
+    // Login/Register requests
+    RETRIEVE_USER: ({ commit }) => {
       return new Promise((resolve, reject) => {
         commit("USER_DETAILS_REQUEST");
         return axios({
-          method: "post",
+          method: "get",
           url: RequestHandler.getBaseUrl() + "/users/get_user_details",
-          data: JSON.stringify({
-            id: null,
-            name: user.username,
-            email: null,
-            password: null
-          }),
           headers: {
             "Content-Type": "application/json"
           }
@@ -154,6 +191,22 @@ const Store = new Vuex.Store({
             reject(error);
           });
       });
+    },
+    // Functional requests
+    GET_ALL_PEPS: ({ commit }) => {
+      return RequestHandler.doGetRequest("/users/all", {}).then(data => {
+        commit("GET_ALL_PEPS", data);
+      });
+    },
+    GET_MY_PEPS: ({ commit }) => {
+      RequestHandler.doGetRequest("/users/peps/", {}).then(data => {
+        commit("GET_MY_PEPS", data);
+      });
+    },
+    GET_PEP: ({ commit }, pep) => {
+      RequestHandler.doGetRequest("/users/" + pep.name, {}).then(data => {
+        commit("GET_PEP", data);
+      });
     }
   },
   getters: {
@@ -162,7 +215,9 @@ const Store = new Vuex.Store({
     getUser: state => state.user,
     showMenu: state => state.isMenuShown,
     isProduction: state => state.env === "production",
-    isDevelopment: state => state.env === "development"
+    isDevelopment: state => state.env === "development",
+    getAllPeps: state => state.allPeps,
+    getMyPeps: state => state.myPeps
   }
 });
 

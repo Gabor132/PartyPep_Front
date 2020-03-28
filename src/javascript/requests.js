@@ -1,5 +1,6 @@
 import axios from "axios";
 import { RequestUIHandler } from "./request_ui_handler";
+import store from "../store";
 
 const RequestHandler = {};
 
@@ -17,7 +18,6 @@ RequestHandler.getBaseUrl = function() {
 RequestHandler.doGetRequest = async function(
   subUrl,
   params,
-  storeState,
   onSuccess,
   onFailure
 ) {
@@ -29,21 +29,17 @@ RequestHandler.doGetRequest = async function(
       params: params
     })
     .then(response => {
-      RequestUIHandler._getSuccessFunction(onSuccess, storeState);
+      RequestUIHandler._getSuccessFunction(onSuccess, store.state);
       return response.data;
     })
     .catch(error => {
-      RequestUIHandler._getFailureFunction(onFailure, error, storeState);
+      RequestUIHandler._getFailureFunction(onFailure, error, store.state);
     });
 };
-
-//
-// Generic function to do POST Requests (TODO)
 
 RequestHandler.doPostRequest = async function(
   subUrl,
   data,
-  storeState,
   onSuccess,
   onFailure
 ) {
@@ -53,10 +49,52 @@ RequestHandler.doPostRequest = async function(
   return await axios
     .post(RequestHandler.getBaseUrl() + subUrl, data)
     .then(response => {
-      RequestUIHandler._getSuccessFunction(onSuccess, storeState);
+      RequestUIHandler._getSuccessFunction(onSuccess, store.state);
       return response.data;
     })
     .catch(error => {
-      RequestUIHandler._getFailureFunction(onFailure, error, storeState);
+      RequestUIHandler._getFailureFunction(onFailure, error, store.state);
+    });
+};
+
+RequestHandler.doPutRequest = async function(
+  subUrl,
+  data,
+  onSuccess,
+  onFailure
+) {
+  if (typeof subUrl === undefined) {
+    subUrl = "";
+  }
+  return await axios
+    .put(RequestHandler.getBaseUrl() + subUrl, data)
+    .then(response => {
+      RequestUIHandler._getSuccessFunction(onSuccess, store.state);
+      return response.data;
+    })
+    .catch(error => {
+      RequestUIHandler._getFailureFunction(onFailure, error, store.state);
+    });
+};
+
+RequestHandler.doDeleteRequest = async function(
+  subUrl,
+  params,
+  onSuccess,
+  onFailure
+) {
+  if (typeof subUrl === undefined) {
+    subUrl = "";
+  }
+  return await axios
+    .delete(RequestHandler.getBaseUrl() + subUrl, {
+      params: params
+    })
+    .then(response => {
+      RequestUIHandler._getSuccessFunction(onSuccess, store.state);
+      return response.data;
+    })
+    .catch(error => {
+      RequestUIHandler._getFailureFunction(onFailure, error, store.state);
     });
 };

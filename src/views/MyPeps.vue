@@ -1,14 +1,26 @@
 <template>
   <div class="peps">
-    <maincard :collection="myPeps" :title="myPepsTitle" :emptyText="noPepsText">
-      <pepcard v-for="pep in myPeps" v-bind:key="pep.id" :pep="pep" />
+    <maincard
+      :collection="this.$store.getters.getMyPeps"
+      :pageDetails="myPepsPage"
+    >
+      <pepcard
+        v-for="pep in this.$store.getters.getMyPeps"
+        :pep="pep"
+        :mainPage="mainPage"
+        v-bind:key="pep.id"
+      />
     </maincard>
     <maincard
-      :collection="allPeps"
-      :title="allPepsTitle"
-      :emptyText="noPepsText"
+      :collection="this.$store.getters.getAllPeps"
+      :pageDetails="allPepsPage"
     >
-      <pepcard v-for="pep in allPeps" v-bind:key="pep.id" :pep="pep" />
+      <pepcard
+        v-for="pep in this.$store.getters.getAllPeps"
+        :pep="pep"
+        :mainPage="mainPage"
+        v-bind:key="pep.id"
+      />
     </maincard>
   </div>
 </template>
@@ -17,7 +29,6 @@
 //
 // Imports
 //
-import { RequestHandler } from "../javascript/requests.js";
 import maincard from "../components/cards/MainCard";
 import pepcard from "../components/cards/PepCard";
 // Local Setup
@@ -26,26 +37,31 @@ export default {
   components: { pepcard, maincard },
   data: function() {
     return {
+      mainPage: this,
+      user: this.$store.getters.getUser,
       allPeps: [],
       myPeps: [],
-      allPepsTitle: "All Peps",
-      myPepsTitle: "My Peps",
-      noPepsText: "No Peps"
+      allPepsPage: {
+        pageTitle: "All Peps",
+        pageKey: 0,
+        pageShowDetails: false,
+        pageNoText: "No Peps"
+      },
+      myPepsPage: {
+        pageTitle: "My Peps",
+        pageKey: 1,
+        pageShowDetails: false,
+        pageNoText: "No Peps"
+      }
     };
   },
   mounted() {
-    this.allPeps = this.updatePeps();
+    this.$store.dispatch("GET_ALL_PEPS");
+    this.$store.dispatch("GET_MY_PEPS");
   },
   methods: {
-    updatePeps: function() {
-      RequestHandler.doGetRequest("/users/all", {}, this.$store.state).then(
-        data => {
-          this.allPeps = data;
-          for (let index in this.allPeps) {
-            this.allPeps[index].showDetails = false;
-          }
-        }
-      );
+    reload: function(pep) {
+      this.$store.dispatch("GET_PEP", pep);
     }
   }
 };

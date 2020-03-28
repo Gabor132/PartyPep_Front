@@ -1,11 +1,7 @@
 ----------------------------Template----------------------------------------------
 <template>
   <div class="groups">
-    <maincard
-      :collection="groups"
-      :title="myGroupsTitle"
-      :emptyText="noGroupsText"
-    >
+    <maincard :collection="groups" :pageDetails="myGroupsPage">
       <groupcard v-for="group in groups" v-bind:key="group.id" :group="group" />
     </maincard>
   </div>
@@ -26,8 +22,12 @@ export default {
     return {
       user: this.$store.getters.getUser,
       groups: [],
-      myGroupsTitle: "My Groups",
-      noGroupsText: "No Groups"
+      myGroupsPage: {
+        pageTitle: "My Groups",
+        pageKey: 0,
+        pageShowDetails: false,
+        pageNoText: "No Groups"
+      }
     };
   },
   mounted() {
@@ -35,11 +35,7 @@ export default {
   },
   methods: {
     getGroups: function() {
-      RequestHandler.doGetRequest(
-        "/groups/user/" + this.user.id,
-        {},
-        this.$store.state
-      )
+      RequestHandler.doGetRequest("/groups/user/" + this.user.id, {})
         .then(data => {
           this.groups = data;
         })
