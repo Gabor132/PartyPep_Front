@@ -81,6 +81,12 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
+      path: "/pepmessage",
+      name: "pepmessage",
+      component: () => import("./views/PepMessage.vue"),
+      beforeEnter: ifAuthenticated
+    },
+    {
       path: "/devtools",
       name: "devtools",
       component: () => import("./views/dev/DevTools.vue"),

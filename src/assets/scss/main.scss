@@ -55,3 +55,26 @@ body{
   margin-right: 1vw;
 }
 
+
+.writeMessage {
+  display: flex;
+}
+.pepMessageCard{
+  width:max-content;
+}
+
+.myPepMessage{
+  float: right;
+}
+
+.hisPepMessage{
+  float: left;
+}
+
+.pepMessageCardContainer{
+  display: flow-root;
+}
+
+.pepchat{
+  display:block;
+}

@@ -30,7 +30,10 @@
         </md-card-header>
         <md-divider v-if="pep.showDetails" />
         <md-card-content v-if="pep.showDetails">
-          <span v-if="message.text">Value: {{ message.text }}</span>
+          <span v-if="message.text"
+            >Value: {{ message.text }}
+            <md-button @click="sendMessage(message.text)">Send</md-button>
+          </span>
         </md-card-content>
         <md-card-actions v-if="pep.showDetails">
           <md-button
@@ -99,11 +102,8 @@ export default {
       this.$forceUpdate();
     },
     writeMessage: function(pep) {
-      this.message = {
-        text: "",
-        receiver: "Message to " + pep.name
-      };
-      pep.showMessagePrompt = true;
+      this.$store.dispatch("SELECT_PEP", pep);
+      this.$router.push("pepmessage");
     },
     follow: function(pep) {
       RequestHandler.doPutRequest("/users/follow", pep.name).then(() => {
@@ -129,7 +129,24 @@ export default {
       this.mainPage.reload(pep);
     },
     profile: function(pep) {
-      this.$router.push("/profile/" + pep.name);
+    },
+    sendMessage: function(message) {
+      if (message !== undefined && message !== null) {
+        RequestHandler.doPostRequest("messages/add", {
+          text: message,
+          sourceUsername: this.$store.getters.getUser,
+          receiverUsername: this.pep.name,
+          isRead: false
+        })
+          .then(() => {
+            // eslint-disable-next-line no-console
+            console.log("SENT!");
+          })
+          .catch(() => {
+            // eslint-disable-next-line no-console
+            console.log("NOT SENT!");
+          });
+      }
     }
   }
 };
