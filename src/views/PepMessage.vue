@@ -16,6 +16,10 @@
             <md-icon v-else class="md-size-5x">person</md-icon>
           </md-card-media>
         </md-card-header>
+        <md-divider />
+        <md-card-actions>
+          <md-button @click="goToProfilePage">Profile</md-button>
+        </md-card-actions>
       </div>
     </md-card>
     <md-card class="mainCard md-primary" md-with-hover>
@@ -32,27 +36,19 @@
       </md-card-content>
     </md-card>
     <md-card md-with-hover>
-      <div>
-        <md-card-content>
-          <form class="writeMessage" @submit.prevent="sendMessage">
-            <md-icon>conversation</md-icon>
-            <md-field>
-              <md-input
-                name="newMessage"
-                id="newMessage"
-                autocomplete=""
-                v-model="newMessage"
-                required
-              />
-            </md-field>
-            <md-button
-              type="submit"
-              class="md-primary md-raised"
-              >Send</md-button
-            >
-          </form>
-        </md-card-content>
-      </div>
+      <form class="writeMessage" @submit.prevent="sendMessage">
+        <md-icon>conversation</md-icon>
+        <md-field>
+          <md-input
+            name="newMessage"
+            id="newMessage"
+            autocomplete=""
+            v-model="newMessage"
+            required
+          />
+        </md-field>
+        <md-button type="submit" class="md-primary md-raised">Send</md-button>
+      </form>
     </md-card>
   </div>
 </template>
@@ -103,6 +99,10 @@ export default {
         this.getConversationMessages();
         this.newMessage = "";
       });
+    },
+    goToProfilePage: function() {
+      this.$store.dispatch("SELECT_PEP", this.pep);
+      this.$router.push("/profile");
     }
   }
 };

@@ -279,7 +279,7 @@ const Store = new Vuex.Store({
         }
       );
     },
-    SELECT_PEP: ({commit}, pep) => {
+    SELECT_PEP: ({ commit }, pep) => {
       commit("SELECT_PEP", pep);
     }
   },

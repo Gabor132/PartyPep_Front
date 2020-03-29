@@ -39,14 +39,14 @@
           <md-button
             class="md-primary"
             :disabled="!pep.canViewProfile"
-            @click="profile(pep)"
+            @click="goToProfilePage(pep)"
           >
             Profile
           </md-button>
           <md-button
             class="md-primary"
             :disabled="!pep.canMessage"
-            @click.stop="writeMessage(pep)"
+            @click.stop="goToMessagePage(pep)"
           >
             Message
           </md-button>
@@ -101,9 +101,13 @@ export default {
       pep.showDetails = !pep.showDetails;
       this.$forceUpdate();
     },
-    writeMessage: function(pep) {
+    goToMessagePage: function(pep) {
       this.$store.dispatch("SELECT_PEP", pep);
       this.$router.push("pepmessage");
+    },
+    goToProfilePage: function(pep) {
+      this.$store.dispatch("SELECT_PEP", pep);
+      this.$router.push("/profile");
     },
     follow: function(pep) {
       RequestHandler.doPutRequest("/users/follow", pep.name).then(() => {
@@ -127,8 +131,6 @@ export default {
     },
     reloadPep: async function(pep) {
       this.mainPage.reload(pep);
-    },
-    profile: function(pep) {
     },
     sendMessage: function(message) {
       if (message !== undefined && message !== null) {

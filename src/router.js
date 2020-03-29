@@ -74,9 +74,6 @@ export default new Router({
     {
       path: "/profile",
       name: "profile",
-      props: {
-        user: Store.getters.getUser
-      },
       component: () => import("./views/Profile.vue"),
       beforeEnter: ifAuthenticated
     },

@@ -3,7 +3,7 @@
     <md-card class="md-primary">
       <md-card-header>
         <md-card-header-text>
-          <h3 class="md-title">{{ user.name }}</h3>
+          <h3 class="md-title">{{ pep.name }}</h3>
           <span> profile page </span>
         </md-card-header-text>
         <md-card-media class="md-medium">
@@ -16,11 +16,10 @@
         </md-card-media>
       </md-card-header>
       <md-divider />
-      <md-card-content>
-        <md-card-actions>
-          <md-button @click="logout">Logout</md-button>
-        </md-card-actions>
-      </md-card-content>
+      <md-card-actions>
+        <md-button @click="logout" v-if="isMyProfile()">Logout</md-button>
+        <md-button @click="goToMessagePage" v-else>Message</md-button>
+      </md-card-actions>
     </md-card>
     <md-card class="md-primary">
       <md-card-header>
@@ -31,15 +30,15 @@
       <md-divider />
       <md-card-content>
         <md-card-area>
-          <p>Username: {{ user.name }}</p>
-          <p>Email: {{ user.email }}</p>
+          <p>Username: {{ pep.name }}</p>
+          <p>Email: {{ pep.email }}</p>
         </md-card-area>
       </md-card-content>
       <md-card-actions>
-        <md-button @click="changeInfo">Edit</md-button>
+        <md-button @click="changeInfo" v-if="isMyProfile()">Edit</md-button>
       </md-card-actions>
     </md-card>
-    <md-card v-if="!this.checkPicture()">
+    <md-card v-if="!this.checkPicture() && this.isMyProfile()">
       <md-card-header>
         <md-card-header-text>
           <h3 class="md-title">Upload Profile Picture</h3>
@@ -87,9 +86,10 @@
 // Local Setup
 export default {
   name: "profile",
-  props: ["user"],
   data: function() {
     return {
+      pep: this.$store.getters.getSelectedPep,
+      user: this.$store.getters.getUser,
       previewImage: null,
       file: null
     };
@@ -116,6 +116,13 @@ export default {
       this.file = null;
       this.previewImage = null;
       this.user.picture = undefined;
+    },
+    isMyProfile: function() {
+      return this.user.name === this.pep.name;
+    },
+    goToMessagePage: function() {
+      this.$store.dispatch("SELECT_PEP", this.pep);
+      this.$router.push("pepmessage");
     }
   }
 };
