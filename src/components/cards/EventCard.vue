@@ -39,11 +39,12 @@
           </span>
           <div v-if="event.subscribedUsers.length > 0">
             <a
-              to="/profile"
               v-for="user in event.subscribedUsers"
               v-bind:key="user"
-              md-with-hover
-              >{{ user }}
+              @click="goToProfilePage(user)"
+              ><md-avatar class="md-avatar-icon" md-with-hover>
+                {{ user.charAt(0) }}</md-avatar
+              >
             </a>
           </div>
         </md-card-content>
@@ -69,6 +70,8 @@
  * Imports
  */
 //
+import { RequestHandler } from "../../javascript/requests";
+
 /**
  * Exports
  */
@@ -83,7 +86,18 @@ export default {
       event.showDetails = !event.showDetails;
       this.$forceUpdate();
     },
-    share: function() {}
+    share: function() {},
+    goToProfilePage: async function(pepname) {
+      let pep = await RequestHandler.doGetRequest("/users/" + pepname, {}).then(
+        data => {
+          return data;
+        }
+      );
+      if (pep !== null) {
+        await this.$store.dispatch("SELECT_PEP", pep);
+        this.$router.push("/profile");
+      }
+    }
   }
 };
 </script>

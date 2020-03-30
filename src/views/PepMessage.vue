@@ -80,7 +80,10 @@ export default {
       return this.user.picture !== undefined;
     },
     getConversationMessages: async function() {
-      return await RequestHandler.doGetRequest("/messages/private/user/" + this.pep.name, {})
+      return await RequestHandler.doGetRequest(
+        "/messages/private/user/" + this.pep.name,
+        {}
+      )
         .then(data => {
           this.conversation = data;
           return this.conversation;
@@ -111,7 +114,10 @@ export default {
       let toMarkChat = [];
       let toMarkChatIds = [];
       for (let index in this.conversation) {
-        if (!this.conversation[index].isRead && this.conversation[index].receiverUsername === this.user.name) {
+        if (
+          !this.conversation[index].isRead &&
+          this.conversation[index].receiverUsername === this.user.name
+        ) {
           toMarkChat.push(this.conversation[index]);
           toMarkChatIds.push(this.conversation[index].id);
         }

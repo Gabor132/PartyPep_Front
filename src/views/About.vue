@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <md-card>
+    <md-card class="md-primary">
       <md-card-header>
         <h1 class="md-title">About</h1>
       </md-card-header>
@@ -8,7 +8,9 @@
       <md-card-content>
         <p>
           PartyPeps is made by this guy:
-          <a href="https://www.linkedin.com/in/dragos-alexandru-gabor-82a8985b/"
+          <a
+            class="md-accent"
+            href="https://www.linkedin.com/in/dragos-alexandru-gabor-82a8985b/"
             >Gabor Dragos-Alexandru</a
           >
         </p>
