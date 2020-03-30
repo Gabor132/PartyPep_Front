@@ -3,7 +3,40 @@
     <md-tabs
       class="md-primary"
       md-alignment="centered"
-      v-if="$store.getters.isAuthenticated"
+      v-if="$store.getters.isAuthenticated && this.$isMobile()"
+    >
+      <md-tab
+        id="tab-events"
+        md-label="Events"
+        to="/events"
+      ></md-tab>
+      <md-tab
+        id="tab-peps"
+        md-label="Peps"
+        to="/peps"
+      ></md-tab>
+      <md-tab
+        id="tab-groups"
+        md-label="Groups"
+        to="/groups"
+      ></md-tab>
+      <md-tab
+        id="tab-messages"
+        md-label="Messages"
+        to="/messages"
+      ></md-tab>
+      <md-tab
+        v-if="this.isDevelopment()"
+        id="tab-requests"
+        md-label="Dev Tools"
+        to="/devtools"
+      >
+      </md-tab>
+    </md-tabs>
+    <md-tabs
+      class="md-primary"
+      md-alignment="centered"
+      v-if="$store.getters.isAuthenticated && ! this.$isMobile()"
     >
       <md-tab
         id="tab-events"

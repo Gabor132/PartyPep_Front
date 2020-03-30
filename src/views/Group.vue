@@ -1,26 +1,41 @@
 <template>
-  <div class="pepMessage">
-    <md-card class="mainCard md-primary" md-with-hover>
-      <div>
-        <md-card-header>
-          <md-card-header-text>
-            <h3 class="md-title">{{ pep.name }}</h3>
-            <span> chat page </span>
-          </md-card-header-text>
-          <md-card-media class="md-medium">
-            <img
-              v-if="this.checkPicture()"
-              src="https://vuematerial.io/assets/examples/card-weather.png"
-              alt="Un Boss"
-            />
-            <md-icon v-else class="md-size-5x">person</md-icon>
-          </md-card-media>
-        </md-card-header>
-        <md-divider />
-        <md-card-actions>
-          <md-button @click="goToProfilePage">Profile</md-button>
-        </md-card-actions>
-      </div>
+  <div class="group">
+    <md-card class="md-primary">
+      <md-card-header>
+        <md-card-header-text>
+          <h3 class="md-title">{{ group.name }}</h3>
+          <span> group page </span>
+        </md-card-header-text>
+        <md-card-media class="md-medium">
+          <img
+            v-if="group.picture !== undefined"
+            src="https://vuematerial.io/assets/examples/card-weather.png"
+            alt="Un Boss"
+          />
+          <md-icon v-else class="md-size-5x">people</md-icon>
+        </md-card-media>
+      </md-card-header>
+      <md-divider />
+      <md-card-content>
+        <md-card-area>
+          <span>Members: </span>
+          <a
+            v-for="user in group.usersUsernames"
+            v-bind:key="user"
+            class="md-with-hover"
+            @click="goToProfilePage(user)"
+            ><md-avatar class="md-avatar-icon"> {{ user.charAt(0) }}</md-avatar>
+          </a>
+        </md-card-area>
+      </md-card-content>
+      <md-card-actions>
+        <md-button>
+          Add Pep
+        </md-button>
+        <md-button>
+          Get out
+        </md-button>
+      </md-card-actions>
     </md-card>
     <md-card class="mainCard md-primary" md-with-hover>
       <div>
@@ -52,42 +67,50 @@
     </md-card>
   </div>
 </template>
-
 <script>
-import { RequestHandler } from "../javascript/requests";
+// Imports
 import pepchat from "../components/PepChat";
-
+import { RequestHandler } from "../javascript/requests";
+// Exports
 export default {
-  name: "pepmessage",
+  name: "Group",
   components: {
     pepchat: pepchat
   },
   data: function() {
     return {
-      newMessage: "",
       user: this.$store.getters.getUser,
-      pep: this.$store.getters.getSelectedPep,
+      group: this.$store.getters.getSelectedGroup,
+      newMessage: "",
       conversation: []
     };
   },
-  messages: [],
-  mounted: async function() {
-    await this.getConversationMessages();
+  mounted() {
+    this.getConversationMessages();
     this.markAsRead();
   },
   methods: {
-    checkPicture: function() {
-      return this.user.picture !== undefined;
+    goToProfilePage: async function(pepname) {
+      let pep = await RequestHandler.doGetRequest("/users/" + pepname, {}).then(
+        data => {
+          return data;
+        }
+      );
+      if (pep !== null) {
+        await this.$store.dispatch("SELECT_PEP", pep);
+        this.$router.push("/profile");
+      }
     },
-    getConversationMessages: async function() {
-      return await RequestHandler.doGetRequest("/messages/private/user/" + this.pep.name, {})
+    getConversationMessages: function() {
+      RequestHandler.doGetRequest(
+        "/messages/group/group/" + this.group.name,
+        {}
+      )
         .then(data => {
           this.conversation = data;
-          return this.conversation;
         })
         .catch(() => {
           this.conversation.push({});
-          return this.conversation;
         });
     },
     sendMessage: function() {
@@ -95,23 +118,22 @@ export default {
         id: null,
         text: this.newMessage,
         sourceUsername: this.user.name,
-        receiverUsername: this.pep.name,
-        groupName: null,
+        receiverUsername: null,
+        groupName: this.group.name,
         isRead: false
       }).then(() => {
         this.getConversationMessages();
         this.newMessage = "";
       });
     },
-    goToProfilePage: function() {
-      this.$store.dispatch("SELECT_PEP", this.pep);
-      this.$router.push("/profile");
-    },
     markAsRead: function() {
       let toMarkChat = [];
       let toMarkChatIds = [];
       for (let index in this.conversation) {
-        if (!this.conversation[index].isRead && this.conversation[index].receiverUsername === this.user.name) {
+        if (
+          !this.conversation[index].isRead &&
+          this.conversation[index].receiverUsername === this.user.name
+        ) {
           toMarkChat.push(this.conversation[index]);
           toMarkChatIds.push(this.conversation[index].id);
         }
@@ -129,4 +151,5 @@ export default {
   }
 };
 </script>
+
 <style scoped></style>

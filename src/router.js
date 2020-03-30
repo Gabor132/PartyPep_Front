@@ -44,25 +44,25 @@ export default new Router({
     {
       path: "/events",
       name: "events",
-      component: () => import("./views/MyEvents.vue"),
+      component: () => import("./views/Events.vue"),
       beforeEnter: ifAuthenticated
     },
     {
       path: "/peps",
       name: "peps",
-      component: () => import("./views/MyPeps.vue"),
+      component: () => import("./views/Peps.vue"),
       beforeEnter: ifAuthenticated
     },
     {
       path: "/messages",
       name: "messages",
-      component: () => import("./views/MyMessages.vue"),
+      component: () => import("./views/Messages.vue"),
       beforeEnter: ifAuthenticated
     },
     {
       path: "/groups",
       name: "groups",
-      component: () => import("./views/MyGroups.vue"),
+      component: () => import("./views/Groups.vue"),
       beforeEnter: ifAuthenticated
     },
     {
@@ -75,6 +75,12 @@ export default new Router({
       path: "/profile",
       name: "profile",
       component: () => import("./views/Profile.vue"),
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: "/group",
+      name: "group",
+      component: () => import("./views/Group.vue"),
       beforeEnter: ifAuthenticated
     },
     {

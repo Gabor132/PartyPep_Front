@@ -8,6 +8,7 @@ import VueMaterial from "vue-material";
 import "vue-material/dist/vue-material.min.css";
 import "./registerServiceWorker";
 import axios from "axios";
+import VueMobileDetection from "vue-mobile-detection";
 import { RequestUIHandler } from "./javascript/request_ui_handler";
 
 const token = sessionStorage.getItem("access-token");
@@ -19,6 +20,7 @@ Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 Vue.use(VueMaterial);
+Vue.use(VueMobileDetection);
 
 new Vue({
   router,

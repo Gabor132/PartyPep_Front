@@ -27,22 +27,16 @@
         <md-card-content v-if="group.showDetails">
           <span>Members: </span>
           <a
-            to="/profile"
             v-for="user in group.usersUsernames"
             v-bind:key="user"
             class="md-with-hover"
+            @click="goToProfilePage(user)"
             ><md-avatar class="md-avatar-icon"> {{ user.charAt(0) }}</md-avatar>
           </a>
         </md-card-content>
         <md-card-actions v-if="group.showDetails">
-          <md-button class="md-primary">
+          <md-button class="md-primary" @click="goToGroupPage(group)">
             Messages
-          </md-button>
-          <md-button class="md-primary">
-            Add Pep
-          </md-button>
-          <md-button class="md-primary">
-            Get out
           </md-button>
         </md-card-actions>
       </md-ripple>
@@ -55,6 +49,8 @@
  * Imports
  */
 //
+import { RequestHandler } from "../../javascript/requests";
+
 /**
  * Exports
  */
@@ -68,6 +64,21 @@ export default {
     toggleEventDetails: function(group) {
       group.showDetails = !group.showDetails;
       this.$forceUpdate();
+    },
+    goToProfilePage: async function(pepname) {
+      let pep = await RequestHandler.doGetRequest("/users/" + pepname, {}).then(
+        data => {
+          return data;
+        }
+      );
+      if (pep !== null) {
+        await this.$store.dispatch("SELECT_PEP", pep);
+        this.$router.push("/profile");
+      }
+    },
+    goToGroupPage: function(group) {
+      this.$store.dispatch("SELECT_GROUP", group);
+      this.$router.push("/group");
     }
   }
 };

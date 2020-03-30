@@ -22,6 +22,7 @@ const Store = new Vuex.Store({
     myGroupMessages: [],
     status: "",
     selectedPep: null,
+    selectedGroup: null,
     env: process.env.VUE_APP_NODE_ENV,
     isMenuShown: false,
     serviceResponseBar: {
@@ -143,6 +144,9 @@ const Store = new Vuex.Store({
     },
     SELECT_PEP: (state, pep) => {
       state.selectedPep = pep;
+    },
+    SELECT_GROUP: (state, group) => {
+      state.selectedGroup = group;
     }
   },
   actions: {
@@ -281,6 +285,9 @@ const Store = new Vuex.Store({
     },
     SELECT_PEP: ({ commit }, pep) => {
       commit("SELECT_PEP", pep);
+    },
+    SELECT_GROUP: ({ commit }, group) => {
+      commit("SELECT_GROUP", group);
     }
   },
   getters: {
@@ -297,7 +304,8 @@ const Store = new Vuex.Store({
     getMyGroups: state => state.myGroups,
     getMyPrivateMessages: state => state.myPrivateMessages,
     getMyGroupMessages: state => state.myGroupMessages,
-    getSelectedPep: state => state.selectedPep
+    getSelectedPep: state => state.selectedPep,
+    getSelectedGroup: state => state.selectedGroup
   }
 });
 
