@@ -8,7 +8,7 @@
     </md-app-toolbar>
     <md-divider />
     <md-list>
-      <md-list-item to="/profile" @click="hideDrawer" v-if="user !== null">
+      <md-list-item @click="goToProfile()" v-if="user !== null">
         <md-icon>account_circle</md-icon>
         <span class="md-list-item-text">{{
           user.name + "'s " + "profile"
@@ -41,6 +41,11 @@ export default {
     },
     hideDrawer: function() {
       this.$store.dispatch("TOGGLE_MENU");
+    },
+    goToProfile() {
+      this.hideDrawer();
+      this.$store.dispatch("SELECT_PEP", this.user);
+      this.$router.push("/profile");
     }
   }
 };
