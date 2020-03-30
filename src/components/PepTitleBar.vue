@@ -1,17 +1,14 @@
 <template>
   <div class="md-toolbar-row" id="peptitlebar">
-    <md-button
-      class="md-icon-button"
-      @click="global.isMenuShown = !global.isMenuShown"
-    >
+    <md-button class="md-icon-button" @click="showMenu">
       <md-icon class="md-icon">menu</md-icon>
     </md-button>
     <span class="md-title" to="/">PartyPeps</span>
     <div class="md-toolbar-section-end">
-      <md-button class="md-icon-button">
-        <md-avatar v-if="user !== undefined" class="md-avatar-icon">{{
-          user.getAvatarText()
-        }}</md-avatar>
+      <md-button class="md-icon-button" @click="goToProfile">
+        <md-avatar v-if="user !== null" class="md-avatar-icon">
+          {{ user.name.charAt(0) }}</md-avatar
+        >
         <md-icon v-else>person</md-icon>
       </md-button>
     </div>
@@ -23,13 +20,18 @@
 // Setup pepnavbar
 export default {
   name: "peptitlebar",
-  props: ["global", "user"],
+  data: function() {
+    return {
+      user: this.$store.getters.getUser
+    };
+  },
   methods: {
     showMenu() {
-      this.$emit("showMenuParent");
+      this.$store.dispatch("TOGGLE_MENU");
     },
-    isLoggedIn() {
-      this.user !== undefined;
+    goToProfile() {
+      this.$store.dispatch("SELECT_PEP", this.user);
+      this.$router.push("/profile");
     }
   }
 };
