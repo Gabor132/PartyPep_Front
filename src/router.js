@@ -90,6 +90,12 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
+      path: "/addevent",
+      name: "addevent",
+      component: () => import("./views/details/AddEvent"),
+      beforeEnter: ifAuthenticated
+    },
+    {
       path: "/devtools",
       name: "devtools",
       component: () => import("./views/dev/DevTools.vue"),

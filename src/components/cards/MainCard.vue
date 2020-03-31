@@ -16,18 +16,7 @@
       </div>
       <md-divider />
       <md-card-content v-if="pageDetails.pageShowDetails">
-        <div class="md-main-card-holder" v-if="collection.length === 0">
-          <md-card md-with-hover>
-            <md-ripple>
-              <md-card-content>
-                <div>{{ pageDetails.pageNoText }}</div>
-              </md-card-content>
-            </md-ripple>
-          </md-card>
-        </div>
-        <div v-else>
-          <slot></slot>
-        </div>
+        <slot></slot>
       </md-card-content>
     </md-card>
   </div>
@@ -36,7 +25,7 @@
 <script>
 export default {
   name: "maincard",
-  props: ["collection", "pageDetails"],
+  props: ["pageDetails"],
   data: function() {
     return {};
   },

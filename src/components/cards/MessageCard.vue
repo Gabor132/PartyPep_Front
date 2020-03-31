@@ -72,6 +72,10 @@ export default {
     markAsRead: function(message) {
       RequestHandler.doPostRequest("/messages/read", [message.id]).then(() => {
         message.isRead = true;
+        this.$store.dispatch(
+          "SET_UNREAD_MESSAGE",
+          this.$store.getters.getNumberUnreadMessages - 1
+        );
       });
     },
     goToPepMessagePage: async function(pepname) {

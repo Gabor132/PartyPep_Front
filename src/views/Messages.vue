@@ -4,21 +4,58 @@
       :collection="this.$store.getters.getMyPrivateMessages"
       :pageDetails="myPrivateMessagesPage"
     >
-      <messagecard
-        v-for="message in this.$store.getters.getMyPrivateMessages"
-        v-bind:key="message.id"
-        :message="message"
-      />
+      <div
+        class="md-main-card-holder"
+        v-if="this.$store.getters.getMyPrivateMessages.length === 0"
+      >
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-content>
+              <md-empty-state
+                md-icon="chat"
+                md-label="No new messages"
+                md-description="I guess no one is looking for you..."
+              >
+              </md-empty-state>
+            </md-card-content>
+          </md-ripple>
+        </md-card>
+      </div>
+      <div v-else>
+        <messagecard
+          v-for="message in this.$store.getters.getMyPrivateMessages"
+          v-bind:key="message.id"
+          :message="message"
+        />
+      </div>
     </maincard>
     <maincard
       :collection="this.$store.getters.getMyGroupMessages"
       :pageDetails="myGroupMessagesPage"
-    >
-      <messagecard
-        v-for="message in this.$store.getters.getMyGroupMessages"
-        v-bind:key="message.id"
-        :message="message"
-      />
+      ><div
+        class="md-main-card-holder"
+        v-if="this.$store.getters.getMyGroupMessages.length === 0"
+      >
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-content>
+              <md-empty-state
+                md-icon="chat"
+                md-label="No new group messages"
+                md-description="Your gangs don't talk that much..."
+              >
+              </md-empty-state>
+            </md-card-content>
+          </md-ripple>
+        </md-card>
+      </div>
+      <div v-else>
+        <messagecard
+          v-for="message in this.$store.getters.getMyGroupMessages"
+          v-bind:key="message.id"
+          :message="message"
+        />
+      </div>
     </maincard>
   </div>
 </template>

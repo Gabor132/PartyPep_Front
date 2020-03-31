@@ -79,6 +79,29 @@ body{
   display:block;
 }
 
+
+#pepnavbar {
+  align-items: center;
+}
+.badge {
+  width: 19px;
+  height: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 2px;
+  right: 34px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 100%;
+  color: #754368;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  font-family: "Roboto Mono", monospace;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
 
 .titlefont {

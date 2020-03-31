@@ -9,15 +9,15 @@
         </md-card-header>
       </div>
       <md-divider />
-      <md-card-content> </md-card-content>
+      <slot></slot>
     </md-card>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AddingPage",
-  props: ["title"]
+  name: "addingpage",
+  props: ["title", "newObject"]
 };
 </script>
 

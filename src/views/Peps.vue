@@ -4,23 +4,61 @@
       :collection="this.$store.getters.getMyPeps"
       :pageDetails="myPepsPage"
     >
-      <pepcard
-        v-for="pep in this.$store.getters.getMyPeps"
-        :pep="pep"
-        :mainPage="mainPage"
-        v-bind:key="pep.id"
-      />
+      <div
+        class="md-main-card-holder"
+        v-if="this.$store.getters.getMyPeps.length === 0"
+      >
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-content>
+              <md-empty-state
+                md-icon="person"
+                md-label="Stop being lonely"
+                md-description="Find yourself a friend"
+              >
+              </md-empty-state>
+            </md-card-content>
+          </md-ripple>
+        </md-card>
+      </div>
+      <div v-else>
+        <pepcard
+          v-for="pep in this.$store.getters.getMyPeps"
+          :pep="pep"
+          :mainPage="mainPage"
+          v-bind:key="pep.id"
+        />
+      </div>
     </maincard>
     <maincard
       :collection="this.$store.getters.getAllPeps"
       :pageDetails="allPepsPage"
     >
-      <pepcard
-        v-for="pep in this.$store.getters.getAllPeps"
-        :pep="pep"
-        :mainPage="mainPage"
-        v-bind:key="pep.id"
-      />
+      <div
+        class="md-main-card-holder"
+        v-if="this.$store.getters.getAllEvents.length === 0"
+      >
+        <md-card md-with-hover>
+          <md-ripple>
+            <md-card-content>
+              <md-empty-state
+                md-icon="person"
+                md-label="Oh well"
+                md-description="Apparently you are the only one using this app"
+              >
+              </md-empty-state>
+            </md-card-content>
+          </md-ripple>
+        </md-card>
+      </div>
+      <div v-else>
+        <pepcard
+          v-for="pep in this.$store.getters.getAllPeps"
+          :pep="pep"
+          :mainPage="mainPage"
+          v-bind:key="pep.id"
+        />
+      </div>
     </maincard>
   </div>
 </template>

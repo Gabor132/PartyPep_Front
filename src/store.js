@@ -23,6 +23,7 @@ const Store = new Vuex.Store({
     status: "",
     selectedPep: null,
     selectedGroup: null,
+    numberUnreadMessages: 0,
     env: process.env.VUE_APP_NODE_ENV,
     isMenuShown: false,
     serviceResponseBar: {
@@ -170,6 +171,9 @@ const Store = new Vuex.Store({
     },
     SELECT_GROUP: (state, group) => {
       state.selectedGroup = group;
+    },
+    SET_UNREAD_MESSAGE: (state, number) => {
+      state.numberUnreadMessages = number;
     }
   },
   actions: {
@@ -318,6 +322,9 @@ const Store = new Vuex.Store({
     },
     SELECT_GROUP: ({ commit }, group) => {
       commit("SELECT_GROUP", group);
+    },
+    SET_UNREAD_MESSAGE: ({ commit }, number) => {
+      commit("SET_UNREAD_MESSAGE", number);
     }
   },
   getters: {
@@ -335,7 +342,8 @@ const Store = new Vuex.Store({
     getMyPrivateMessages: state => state.myPrivateMessages,
     getMyGroupMessages: state => state.myGroupMessages,
     getSelectedPep: state => state.selectedPep,
-    getSelectedGroup: state => state.selectedGroup
+    getSelectedGroup: state => state.selectedGroup,
+    getNumberOfUnreadMessages: state => state.numberUnreadMessages
   }
 });
 
