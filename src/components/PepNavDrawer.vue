@@ -4,7 +4,10 @@
       <md-button class="md-icon-button" @click="hideDrawer">
         <md-icon class="md-icon">arrow_back</md-icon>
       </md-button>
-      <img class="drawerTitleImage" src="../../public/img/PartyPepsTitleReverse.png">
+      <img
+        class="drawerTitleImage"
+        src="../../public/img/PartyPepsTitleReverse.png"
+      />
     </md-app-toolbar>
     <md-divider />
     <md-list>

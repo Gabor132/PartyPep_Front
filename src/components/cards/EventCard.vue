@@ -49,8 +49,15 @@
           </div>
         </md-card-content>
         <md-card-actions v-if="event.showDetails">
-          <md-button class="md-primary">
+          <md-button
+            class="md-primary"
+            v-if="event.canSubscribe"
+            @click="subscribe(event)"
+          >
             Subscribe
+          </md-button>
+          <md-button class="md-primary" v-else @click="unsubscribe(event)">
+            Unsubscribe
           </md-button>
           <md-button class="md-primary" @click="share">
             Share
@@ -77,7 +84,7 @@ import { RequestHandler } from "../../javascript/requests";
  */
 export default {
   name: "eventcard",
-  props: ["event"],
+  props: ["event", "mainPage"],
   data: function() {
     return {};
   },
@@ -97,6 +104,25 @@ export default {
         await this.$store.dispatch("SELECT_PEP", pep);
         this.$router.push("/profile");
       }
+    },
+    subscribe: async function(event) {
+      await RequestHandler.doPutRequest("/events/subscribe", event.id).then(
+        () => {
+          this.reloadPep(event);
+        }
+      );
+      await this.$store.dispatch("GET_EVENT", event);
+    },
+    unsubscribe: async function(event) {
+      await RequestHandler.doDeleteRequest(
+        "/events/unsubscribe/" + event.id
+      ).then(() => {
+        this.reloadPep(event);
+      });
+      await this.$store.dispatch("GET_EVENT", event);
+    },
+    reloadPep: async function(event) {
+      this.mainPage.reload(event);
     }
   }
 };

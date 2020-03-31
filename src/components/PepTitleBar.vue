@@ -4,7 +4,7 @@
       <md-icon class="md-icon">menu</md-icon>
     </md-button>
     <!-- <span class="md-title titlefont" to="/">PartyPeps</span> -->
-    <img class="titleimage" src="../../public/img/PartyPepsTitle2.png">
+    <img class="titleimage" src="../../public/img/PartyPepsTitle2.png" />
     <div class="md-toolbar-section-end">
       <md-button class="md-icon-button" @click="goToProfile">
         <md-avatar v-if="user !== null" class="md-avatar-icon">

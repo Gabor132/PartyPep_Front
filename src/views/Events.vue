@@ -8,6 +8,7 @@
       <eventcard
         v-for="event in this.$store.getters.getMyEvents"
         v-bind:key="event.id"
+        :mainPage="mainPage"
         :event="event"
       ></eventcard>
     </maincard>
@@ -18,6 +19,7 @@
       <eventcard
         v-for="event in this.$store.getters.getAllEvents"
         v-bind:key="event.id"
+        :mainPage="mainPage"
         :event="event"
       />
     </maincard>
@@ -37,6 +39,7 @@ export default {
   },
   data: function() {
     return {
+      mainPage: this,
       user: this.$store.getters.getUser,
       allEventsPage: {
         pageTitle: "All Events",
@@ -45,7 +48,7 @@ export default {
         pageNoText: "No Events"
       },
       myEventsPage: {
-        pageTitle: "My Events",
+        pageTitle: "Subscribed Events",
         pageKey: 1,
         pageShowDetails: false,
         pageNoText: "No Events"
@@ -56,6 +59,10 @@ export default {
     this.$store.dispatch("GET_ALL_EVENTS");
     this.$store.dispatch("GET_MY_EVENTS");
   },
-  methods: {}
+  methods: {
+    reload: function(event) {
+      this.$store.dispatch("GET_EVENT", event);
+    }
+  }
 };
 </script>

@@ -89,8 +89,6 @@ const Store = new Vuex.Store({
       }
     },
     GET_PEP: (state, pep) => {
-      // eslint-disable-next-line no-console
-      console.log(pep);
       if (pep !== undefined && pep !== null) {
         let found = false;
         for (let index in state.myPeps) {
@@ -110,6 +108,31 @@ const Store = new Vuex.Store({
         for (let index in state.allPeps) {
           if (state.allPeps[index].name === pep.name) {
             state.allPeps[index] = pep;
+            break;
+          }
+        }
+      }
+    },
+    GET_EVENT: (state, event) => {
+      if (event !== undefined && event !== null) {
+        let found = false;
+        for (let index in state.myEvents) {
+          if (state.myEvents[index].name === event.name) {
+            found = true;
+            if (event.canSubscribe) {
+              state.myEvents.splice(index, 1);
+            } else {
+              state.myEvents[index] = event;
+            }
+            break;
+          }
+        }
+        if (!found && !event.canSubscribe) {
+          state.myEvents.push(event);
+        }
+        for (let index in state.allEvents) {
+          if (state.allEvents[index].name === event.name) {
+            state.allEvents[index] = event;
             break;
           }
         }
@@ -247,6 +270,13 @@ const Store = new Vuex.Store({
       RequestHandler.doGetRequest("/users/" + pep.name, {}).then(data => {
         commit("GET_PEP", data);
       });
+    },
+    GET_EVENT: ({ commit }, event) => {
+      RequestHandler.doGetRequest("/events/event/" + event.id, {}).then(
+        data => {
+          commit("GET_EVENT", data);
+        }
+      );
     },
     GET_ALL_EVENTS: ({ commit }) => {
       RequestHandler.doGetRequest("/events/all", {}).then(data => {
