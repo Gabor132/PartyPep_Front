@@ -31,10 +31,7 @@
         ></eventcard>
       </div>
     </maincard>
-    <maincard
-      :pageDetails="allEventsPage"
-      :key="allEventsPage.pageKey"
-    >
+    <maincard :pageDetails="allEventsPage" :key="allEventsPage.pageKey">
       <div
         class="md-main-card-holder"
         v-if="this.$store.getters.getAllEvents.length === 0"
@@ -65,7 +62,7 @@
       </div>
     </maincard>
     <md-button
-      class="md-fab md-small md-primary md-fab-bottom-right"
+      class="md-fab md-small md-accent md-fab-bottom-right"
       @click="goToAddEvent"
     >
       <md-icon>add</md-icon>
@@ -108,8 +105,16 @@ export default {
     this.$store.dispatch("GET_MY_EVENTS");
   },
   methods: {
-    reload: function(event) {
-      this.$store.dispatch("GET_EVENT", event);
+    reload: function(event, withAll) {
+      if (withAll === undefined || withAll === null) {
+        withAll = false;
+      }
+      if (withAll) {
+        this.$store.dispatch("GET_ALL_EVENTS");
+        this.$store.dispatch("GET_MY_EVENTS");
+      } else {
+        this.$store.dispatch("GET_EVENT", event);
+      }
     },
     goToAddEvent: function() {
       this.$router.push("addevent");

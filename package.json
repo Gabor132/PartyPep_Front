@@ -17,6 +17,7 @@
     "bootstrap-vue": "^2.7.0",
     "core-js": "^2.6.11",
     "css-loader": "^3.4.2",
+    "date-fns": "^2.11.1",
     "express": "^4.17.1",
     "jquery": "^3.4.1",
     "node-sass": "^4.13.1",

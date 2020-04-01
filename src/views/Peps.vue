@@ -98,8 +98,16 @@ export default {
     this.$store.dispatch("GET_MY_PEPS");
   },
   methods: {
-    reload: function(pep) {
-      this.$store.dispatch("GET_PEP", pep);
+    reload: function(pep, withAll) {
+      if (withAll === undefined || withAll === null) {
+        withAll = false;
+      }
+      if (withAll) {
+        this.$store.dispatch("GET_ALL_PEPS");
+        this.$store.dispatch("GET_MY_PEPS");
+      } else {
+        this.$store.dispatch("GET_PEP", pep);
+      }
     }
   }
 };

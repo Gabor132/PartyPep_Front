@@ -26,12 +26,16 @@
         <md-divider v-if="event.showDetails" />
         <md-card-content v-if="event.showDetails">
           <p>
-            <md-icon class="md-small">location_on</md-icon> Location:
-            {{ event.location }}
+            <md-icon class="md-small">person</md-icon> Event Creator:
+            {{ event.creationUser }}
           </p>
           <p>
             <md-icon class="md-small">event</md-icon> Start of Event:
             {{ event.startOfEvent }}
+          </p>
+          <p>
+            <md-icon class="md-small">location_on</md-icon> Location:
+            {{ event.location }}
           </p>
           <span
             ><md-icon class="md-small">people</md-icon> Subscribed Users:
@@ -62,8 +66,12 @@
           <md-button class="md-primary" @click="share">
             Share
           </md-button>
-          <md-button class="md-primary">
-            Hide
+          <md-button
+            class="md-primary"
+            v-if="event.canDelete"
+            @click="deleteEvent(event)"
+          >
+            Delete
           </md-button>
         </md-card-actions>
       </md-ripple>
@@ -120,6 +128,13 @@ export default {
         this.reloadPep(event);
       });
       await this.$store.dispatch("GET_EVENT", event);
+    },
+    deleteEvent: async function(event) {
+      await RequestHandler.doDeleteRequest("/events/delete/" + event.id).then(
+        () => {
+          this.mainPage.reload(event, true);
+        }
+      );
     },
     reloadPep: async function(event) {
       this.mainPage.reload(event);
