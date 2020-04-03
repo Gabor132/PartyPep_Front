@@ -29,9 +29,14 @@
         <md-icon>smoking_rooms</md-icon>
         <span class="md-list-item-text">Can I Smoke?</span>
       </md-list-item>
-      <md-list-item @click="subscribeForCanISmoke" v-if="isAuthenticated() && isDragos()">
+      <md-list-item
+        @click="subscribeForCanISmoke"
+        v-if="isAuthenticated() && isDragos() && didNotGrantPermission()"
+      >
         <md-icon>smoking_rooms</md-icon>
-        <span class="md-list-item-text">Allow Notifications for Can I Smoke</span>
+        <span class="md-list-item-text"
+          >Allow Notifications for Can I Smoke</span
+        >
       </md-list-item>
     </md-list>
   </div>
@@ -74,7 +79,13 @@ export default {
       return this.user.name === "admin";
     },
     subscribeForCanISmoke: function() {
-
+      Notification.requestPermission(function(status) {
+        // eslint-disable-next-line no-console
+        console.log("Notification permission status:", status);
+      });
+    },
+    didNotGrantPermission: function() {
+      return Notification.permission !== "granted";
     }
   }
 };

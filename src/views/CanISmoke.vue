@@ -29,7 +29,10 @@ export default {
   name: "canismoke",
   methods: {
     pushNotification: function() {
-
+      Notification.requestPermission(function(status) {
+        // eslint-disable-next-line no-console
+        console.log("Notification permission status:", status);
+      });
     }
   }
 };
