@@ -96,6 +96,12 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
+      path: "/canismoke",
+      name: "canismoke",
+      component: () => import("./views/CanISmoke"),
+      beforeEnter: ifNotAuthenticated
+    },
+    {
       path: "/devtools",
       name: "devtools",
       component: () => import("./views/dev/DevTools.vue"),

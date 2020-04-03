@@ -11,7 +11,7 @@
     </md-app-toolbar>
     <md-divider />
     <md-list>
-      <md-list-item @click="goToProfile()" v-if="user !== null">
+      <md-list-item @click="goToProfile()" v-if="isAuthenticated()">
         <md-icon>account_circle</md-icon>
         <span class="md-list-item-text">{{
           user.name + "'s " + "profile"
@@ -21,9 +21,17 @@
         <md-icon>help</md-icon>
         <span class="md-list-item-text">About</span>
       </md-list-item>
-      <md-list-item @click="logout" v-if="user !== null">
+      <md-list-item @click="logout" v-if="isAuthenticated()">
         <md-icon>no_meeting_room</md-icon>
         <span class="md-list-item-text">Logout</span>
+      </md-list-item>
+      <md-list-item @click="goToCanISmoke" v-if="!isAuthenticated()">
+        <md-icon>smoking_rooms</md-icon>
+        <span class="md-list-item-text">Can I Smoke?</span>
+      </md-list-item>
+      <md-list-item @click="subscribeForCanISmoke" v-if="isAuthenticated() && isDragos()">
+        <md-icon>smoking_rooms</md-icon>
+        <span class="md-list-item-text">Allow Notifications for Can I Smoke</span>
       </md-list-item>
     </md-list>
   </div>
@@ -34,7 +42,12 @@
 // Setup pepnavbar
 export default {
   name: "pepnavdrawer",
-  props: ["global", "user"],
+  props: ["global"],
+  data: function() {
+    return {
+      user: this.$store.getters.getUser
+    };
+  },
   methods: {
     logout: function() {
       this.$store.dispatch("AUTH_LOGOUT").then(() => {
@@ -42,13 +55,26 @@ export default {
         this.$router.go();
       });
     },
+    goToCanISmoke: function() {
+      this.$store.dispatch("TOGGLE_MENU");
+      this.$router.push("canismoke");
+    },
     hideDrawer: function() {
       this.$store.dispatch("TOGGLE_MENU");
     },
-    goToProfile() {
+    goToProfile: function() {
       this.hideDrawer();
       this.$store.dispatch("SELECT_PEP", this.user);
       this.$router.push("/profile");
+    },
+    isAuthenticated: function() {
+      return this.$store.getters.isAuthenticated;
+    },
+    isDragos: function() {
+      return this.user.name === "admin";
+    },
+    subscribeForCanISmoke: function() {
+
     }
   }
 };

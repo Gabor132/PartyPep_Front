@@ -6,7 +6,7 @@
       <pepnavbar />
     </md-app-toolbar>
     <md-app-drawer :md-active="this.$store.getters.showMenu" md-swipeable>
-      <pepnavdrawer :user="user" />
+      <pepnavdrawer />
     </md-app-drawer>
     <md-app-content>
       <pepcontent />
