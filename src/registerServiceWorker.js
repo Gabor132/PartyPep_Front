@@ -2,7 +2,7 @@
 
 import { register } from "register-service-worker";
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(
@@ -100,7 +100,7 @@ self.addEventListener("push", function(e) {
   e.waitUntil(self.registration.showNotification("Hello world!", options));
 });
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "production") {
   if ("Notification" in window && navigator.serviceWorker) {
     // Display the UI to let the user toggle notifications
     if (Notification.permission === "granted") {
@@ -133,5 +133,3 @@ if (process.env.NODE_ENV === "development") {
     }
   }
 }
-
-displayNotification();
