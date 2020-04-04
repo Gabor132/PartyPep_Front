@@ -25,13 +25,13 @@
         <md-icon>no_meeting_room</md-icon>
         <span class="md-list-item-text">Logout</span>
       </md-list-item>
-      <md-list-item @click="goToCanISmoke" v-if="!isAuthenticated()">
+      <md-list-item @click="goToCanISmoke" v-if="isAuthenticated()">
         <md-icon>smoking_rooms</md-icon>
         <span class="md-list-item-text">Can I Smoke?</span>
       </md-list-item>
       <md-list-item
         @click="subscribeForCanISmoke"
-        v-if="isAuthenticated() && isDragos() && didNotGrantPermission()"
+        v-if="isAuthenticated() && isDragos() && !isSubscribed"
       >
         <md-icon>smoking_rooms</md-icon>
         <span class="md-list-item-text"
@@ -45,13 +45,23 @@
 <script>
 //
 // Setup pepnavbar
+import {
+  checkSubscription,
+  subscribeNotifications
+} from "../registerServiceWorker";
+import { RequestHandler } from "../javascript/requests";
+
 export default {
   name: "pepnavdrawer",
   props: ["global"],
   data: function() {
     return {
-      user: this.$store.getters.getUser
+      user: this.$store.getters.getUser,
+      isSubscribed: false
     };
+  },
+  async beforeMount() {
+    this.isSubscribed = await checkSubscription();
   },
   methods: {
     logout: function() {
@@ -61,7 +71,7 @@ export default {
       });
     },
     goToCanISmoke: function() {
-      this.$store.dispatch("TOGGLE_MENU");
+      this.hideDrawer();
       this.$router.push("canismoke");
     },
     hideDrawer: function() {
@@ -78,14 +88,19 @@ export default {
     isDragos: function() {
       return this.user.name === "admin";
     },
-    subscribeForCanISmoke: function() {
-      Notification.requestPermission(function(status) {
+    subscribeForCanISmoke: async function() {
+      this.hideDrawer();
+      let subscription = await subscribeNotifications();
+      let data = subscription.toJSON();
+      await RequestHandler.doPostRequest("/notification/add", {
+        endpointUrl: data.endpoint,
+        p256dh: data.keys.p256dh,
+        auth: data.keys.auth
+      }).then(() => {
         // eslint-disable-next-line no-console
-        console.log("Notification permission status:", status);
+        console.log("Success");
       });
-    },
-    didNotGrantPermission: function() {
-      return Notification.permission !== "granted";
+      this.$forceUpdate();
     }
   }
 };

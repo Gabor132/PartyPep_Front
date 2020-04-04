@@ -2,7 +2,7 @@
 
 import { register } from "register-service-worker";
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(
@@ -30,63 +30,68 @@ if (process.env.NODE_ENV === "production") {
     error(error) {
       console.error("Error during service worker registration:", error);
     }
-  }).then(function(reg) {
-    console.log("Service Worker Registered!", reg);
-    reg.pushManager
-      .getSubscription()
-      .then(function(sub) {
-        if (sub === null) {
-          // Update UI to ask user to register for Push
-          console.log("Not subscribed to push service!");
-        } else {
-          // We have a subscription, update the database
-          console.log("Subscription object: ", sub);
-        }
-      })
-      .catch(function(err) {
-        console.log("Service Worker registration failed: ", err);
-      });
   });
 }
 
 // eslint-disable-next-line no-unused-vars
-function displayNotification() {
-  if (Notification.permission === "granted") {
-    navigator.serviceWorker.getRegistration().then(function(reg) {
-      var options = {
-        body: "Here is a notification body!",
-        icon: "images/example.png",
-        vibrate: [100, 50, 100],
-        data: {
-          dateOfArrival: Date.now(),
-          primaryKey: 1
-        },
-        actions: [
-          {
-            action: "explore",
-            title: "Explore this new world",
-            icon: "images/checkmark.png"
-          },
-          {
-            action: "close",
-            title: "Close notification",
-            icon: "images/xmark.png"
-          }
-        ]
-      };
-      reg.showNotification("Hello world!", options);
+async function checkSubscription() {
+  let serviceWorker = await window.navigator.serviceWorker.ready;
+  return await serviceWorker.pushManager.getSubscription().then(function(sub) {
+    if (sub === null) {
+      // Update UI to ask user to register for Push
+      console.log("Not subscribed to push service!");
+    } else {
+      // We have a subscription, update the database
+      console.log("Already subscribed to push service");
+    }
+    return sub !== null;
+  });
+}
+
+// eslint-disable-next-line no-unused-vars
+async function subscribeNotifications() {
+  /**let applicationServerKey = await RequestHandler.doGetRequest(
+    "/notification/notify/publicKey",
+    {}
+  ).then(data => {
+    return data;
+  });**/
+  let serviceWorker = await window.navigator.serviceWorker.ready;
+  let subscription = await serviceWorker.pushManager
+    .subscribe({
+      userVisibleOnly: false
+    })
+    .then(async function(sub) {
+      return sub;
+    })
+    .catch(function(e) {
+      if (Notification.permission === "denied") {
+        // eslint-disable-next-line no-console
+        console.warn("Permission for notifications was denied");
+      } else {
+        // eslint-disable-next-line no-console
+        console.error("Unable to subscribe to push", e);
+      }
     });
-  }
+  return subscription;
 }
 
 self.addEventListener("push", function(e) {
+  var body;
+  console.log("Got a push!");
+  if (e.data) {
+    body = e.data.text();
+  } else {
+    body = "Push message no payload";
+  }
+
   var options = {
-    body: "This notification was generated from a push!",
-    icon: "images/example.png",
+    body: body,
+    icon: "images/notification-flat.png",
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: "2"
+      primaryKey: 1
     },
     actions: [
       {
@@ -94,13 +99,17 @@ self.addEventListener("push", function(e) {
         title: "Explore this new world",
         icon: "images/checkmark.png"
       },
-      { action: "close", title: "Close", icon: "images/xmark.png" }
+      {
+        action: "close",
+        title: "I don't want any of this",
+        icon: "images/xmark.png"
+      }
     ]
   };
-  e.waitUntil(self.registration.showNotification("Hello world!", options));
+  e.waitUntil(self.registration.showNotification("Push Notification", options));
 });
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development") {
   if ("Notification" in window && navigator.serviceWorker) {
     // Display the UI to let the user toggle notifications
     if (Notification.permission === "granted") {
@@ -108,10 +117,8 @@ if (process.env.NODE_ENV === "production") {
       self.addEventListener("notificationclose", function(e) {
         var notification = e.notification;
         var primaryKey = notification.data.primaryKey;
-
         console.log("Closed notification: " + primaryKey);
       });
-
       self.addEventListener("notificationclick", function(e) {
         var notification = e.notification;
         // eslint-disable-next-line no-unused-vars
@@ -133,3 +140,5 @@ if (process.env.NODE_ENV === "production") {
     }
   }
 }
+
+export { subscribeNotifications, checkSubscription };

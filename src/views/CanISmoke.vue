@@ -25,14 +25,18 @@
 // Imports
 //
 // Local Setup
+import { RequestHandler } from "../javascript/requests";
+
 export default {
   name: "canismoke",
   methods: {
     pushNotification: function() {
-      Notification.requestPermission(function(status) {
-        // eslint-disable-next-line no-console
-        console.log("Notification permission status:", status);
-      });
+      RequestHandler.doGetRequest("/notification/notify/admin", {}).then(
+        data => {
+          // eslint-disable-next-line no-console
+          console.log("Success:" + data);
+        }
+      );
     }
   }
 };

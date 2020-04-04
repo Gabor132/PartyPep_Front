@@ -99,7 +99,7 @@ export default new Router({
       path: "/canismoke",
       name: "canismoke",
       component: () => import("./views/CanISmoke"),
-      beforeEnter: ifNotAuthenticated
+      beforeEnter: ifAuthenticated
     },
     {
       path: "/devtools",
