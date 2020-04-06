@@ -25,13 +25,13 @@
         <md-icon>no_meeting_room</md-icon>
         <span class="md-list-item-text">Logout</span>
       </md-list-item>
-      <md-list-item @click="goToCanISmoke" v-if="isAuthenticated()">
+      <md-list-item @click="goToCanISmoke" v-if="isAuthenticated() && isPushNotificationsActive">
         <md-icon>smoking_rooms</md-icon>
         <span class="md-list-item-text">Can I Smoke?</span>
       </md-list-item>
       <md-list-item
         @click="subscribeForCanISmoke"
-        v-if="isAuthenticated() && isDragos() && !isSubscribed"
+        v-if="isAuthenticated() && isDragos() && !isSubscribed && isPushNotificationsActive"
       >
         <md-icon>smoking_rooms</md-icon>
         <span class="md-list-item-text"
@@ -57,11 +57,14 @@ export default {
   data: function() {
     return {
       user: this.$store.getters.getUser,
-      isSubscribed: false
+      isSubscribed: false,
+      isPushNotificationsActive: this.$store.getters.isPushNotificationsActive
     };
   },
   async beforeMount() {
-    this.isSubscribed = await checkSubscription();
+    if(this.isPushNotificationsActive){
+      this.isSubscribed = await checkSubscription();
+    }
   },
   methods: {
     logout: function() {

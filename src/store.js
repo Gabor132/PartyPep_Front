@@ -35,7 +35,9 @@ const Store = new Vuex.Store({
         status: "",
         description: ""
       }
-    }
+    },
+    isPushNotificationsActive:
+      process.env.VUE_APP_IS_PUSH_NOTIFICATIONS_ACTIVE === "true"
   },
   mutations: {
     AUTH_REQUEST: state => {
@@ -343,7 +345,8 @@ const Store = new Vuex.Store({
     getMyGroupMessages: state => state.myGroupMessages,
     getSelectedPep: state => state.selectedPep,
     getSelectedGroup: state => state.selectedGroup,
-    getNumberOfUnreadMessages: state => state.numberUnreadMessages
+    getNumberOfUnreadMessages: state => state.numberUnreadMessages,
+    isPushNotificationsActive: state => state.isPushNotificationsActive
   }
 });
 

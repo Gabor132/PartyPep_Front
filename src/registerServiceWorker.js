@@ -137,9 +137,6 @@ if ("Notification" in window && navigator.serviceWorker) {
   } else if (Notification.permission === "blocked") {
     /* the user has previously denied push. Can't reprompt. */
     console.log("Notification permission is blocked");
-  } else {
-    /* show a prompt to the user */
-    console.log("Something else");
   }
 }
 
