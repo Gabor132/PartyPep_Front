@@ -68,8 +68,7 @@ export default new Router({
     {
       path: "/about",
       name: "about",
-      component: () => import("./views/About.vue"),
-      beforeEnter: ifAuthenticated
+      component: () => import("./views/About.vue")
     },
     {
       path: "/profile",
