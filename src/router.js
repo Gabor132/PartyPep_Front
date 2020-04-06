@@ -96,6 +96,12 @@ export default new Router({
       beforeEnter: ifAuthenticated
     },
     {
+      path: "/addgroup",
+      name: "addgroup",
+      component: () => import("./views/details/AddGroup"),
+      beforeEnter: ifAuthenticated
+    },
+    {
       path: "/canismoke",
       name: "canismoke",
       component: () => import("./views/CanISmoke"),

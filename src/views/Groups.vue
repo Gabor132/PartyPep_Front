@@ -34,7 +34,7 @@
       </div>
     </maincard>
     <md-button
-      class="md-fab md-small md-primary md-fab-bottom-right"
+      class="md-fab md-small md-accent md-fab-bottom-right"
       @click="goToAddGroup"
     >
       <md-icon>add</md-icon>
@@ -67,7 +67,9 @@ export default {
     this.$store.dispatch("GET_MY_GROUPS", this.user.id);
   },
   methods: {
-    goToAddGroup: function() {}
+    goToAddGroup: function() {
+      this.$router.push("addgroup");
+    }
   }
 };
 </script>
