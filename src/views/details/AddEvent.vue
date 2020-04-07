@@ -182,7 +182,7 @@ export default {
       let date = new Date(Date.parse(this.newEvent.startOfEvent));
       date.setHours(parseInt(this.selectedHourTime));
       date.setMinutes(parseInt(this.selectedMinuteTime));
-      this.newEvent.startOfEvent = format(date, "dd MMMM yyyy hh:mm");
+      this.newEvent.startOfEvent = format(date, "yyyy-MM-dd HH:mm:ss.SSS");
       RequestHandler.doPostRequest("/events/add", this.newEvent).then(() => {
         this.$router.push("events");
       });

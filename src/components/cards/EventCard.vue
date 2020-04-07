@@ -1,3 +1,4 @@
+import format from "date-fns/format";
 <template>
   <md-card md-with-hover class="md-card-secondary">
     <div @click="toggleEventDetails(event)">
@@ -31,7 +32,7 @@
           </p>
           <p>
             <md-icon class="md-small">event</md-icon> Start of Event:
-            {{ event.startOfEvent }}
+            {{ formatDate(event.startOfEvent) }}
           </p>
           <p>
             <md-icon class="md-small">location_on</md-icon> Location:
@@ -86,7 +87,7 @@
  */
 //
 import { RequestHandler } from "../../javascript/requests";
-
+import format from "date-fns/format";
 /**
  * Exports
  */
@@ -138,6 +139,9 @@ export default {
     },
     reloadPep: async function(event) {
       this.mainPage.reload(event);
+    },
+    formatDate: function(date){
+      return format(Date.parse(date), "yyyy-MM-dd HH:mm");
     }
   }
 };
